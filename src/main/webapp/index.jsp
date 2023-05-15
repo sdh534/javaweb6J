@@ -9,9 +9,8 @@
 	<jsp:include page="/include/bs4.jsp" />
 	<meta name="viewport" content="width=device-width, initial-scale=1">
   <style>
-  .fakeimg {
-    height: 200px;
-    background: #aaa;
+  .container{
+  	padding:0;
   }
   .movie_list {
  	 	list-style: none;
@@ -19,46 +18,79 @@
   }
   .recent_movie {
   	float: left;
+  	width: 20%;
+  	padding: 7px;
   }
   .movie-title{
   margin-top: 5px;
   font-family: "GmarketSansMedium";
   font-size: 20px;
   }
+  .poster {
+  width: 100%;
+ 
+  }
+  
+  .poster > img{
+  width: 100%;
+  border-radius: 7px;
+  }
+  
+  h3{
+   font-family: "GmarketSansMedium";
+   font-weight: 1000;
+   margin-left: 45px;
+  }
+  .text-point{
+  	color: #f74444;
+  }
+  .carousel-control-next, .carousel-control-prev{
+  width:10%
+  }
+  .carousel-control-next{
+  right:-40px;
+  }
+
   </style>
   <script>
   $(document).ready(function(){
-	  $("#Movie_Carousel").carousel("pause");
+	  $(".Movie_Carousel").carousel("pause");
 	  
 	// Enable Carousel Indicators
 	  $(".item1").click(function(){
-	    $("#Movie_Carousel").carousel(0);
+	    $(".Movie_Carousel").carousel(0);
 	  });
 	  $(".item2").click(function(){
-	    $("#Movie_Carousel").carousel(1);
+	    $(".Movie_Carousel").carousel(1);
 	  });
 	  $(".item3").click(function(){
-	    $("#Movie_Carousel").carousel(2);
+	    $(".Movie_Carousel").carousel(2);
 	  });
 	    
 	  // Enable Carousel Controls
 	  $(".carousel-control-prev").click(function(){
-	    $("#Movie_Carousel").carousel("prev");
+	    $(".Movie_Carousel").carousel("prev");
 	  });
 	  $(".carousel-control-next").click(function(){
-	    $("#Movie_Carousel").carousel("next");
+	    $(".Movie_Carousel").carousel("next");
 	  });
+	  
+ 
   });
-  
+  	
   </script>
 </head>
 
 
 <body>
 	<jsp:include page="/include/header.jsp"/>
-	<div class="container" style="margin-top:30px">
-	 
-	<div id="Movie_Carousel" class="carousel slide" data-interval="500">
+	<div class="container-xl" style="margin-top:30px">
+	<!-- 로그인&회원가입 모달 -->
+	<jsp:include page="/WEB-INF/member/memberLogin.jsp"/>
+	<jsp:include page="/WEB-INF/member/memberJoin.jsp"/>
+	
+	<!-- 처음 Carousel -->
+	<div class="Movie_Carousel carousel slide" data-interval="500">
   <!-- Indicators -->
   <ul class="carousel-indicators" >
     <li data-target="#demo" data-slide-to="0" class="active"></li>
@@ -68,52 +100,52 @@
 
   <!-- The slideshow -->
   <div class="carousel-inner">
-	  <p>최근 리뷰 TOP 20</p>
+	  <h3>최근 리뷰 <font color="#f74444">TOP 20</font></h3>
 	    <div class="carousel-item active">
 		    <ul class="movie_list">
-		    	<li class="recent_movie" style="width:20%; hegiht:200px;">
+		    	<li class="recent_movie">
 			    	<a href="#">
 			    		<div class="poster">
-				      	<img src="${ctp}/images/m_babylon_2023.jpg" alt="Los Angeles" style="width:200px">
+				      	<img src="${ctp}/images/m_babylon_2023.jpg" alt="Los Angeles">
 				      </div>
 				      <div class="movie-title">바빌론</div>
 				      <div class="movie-year-country">2023 ・ 미국</div>
 				      <span>평균 ★ 5.0</span>
 			      </a>
 		      </li>
-		    	<li class="recent_movie" style="width:20%; hegiht:200px;">
+		    	<li class="recent_movie">
 			    	<a href="#">
 							<div class="poster">
-				      	<img src="${ctp}/images/m_babylon_2023.jpg" alt="Los Angeles" style="width:200px">
+				      	<img src="${ctp}/images/m_babylon_2023.jpg" alt="Los Angeles">
 				      </div>		      <div class="movie-title">영화 제목</div>
 				      <div class="movie-year-country">2023 ・ 국가이름</div>
 				      <span>평균 ★ 5.0</span>
 			      </a>
 		      </li>
-		    	<li class="recent_movie" style="width:20%; hegiht:200px;">
+		    	<li class="recent_movie">
 			    	<a href="#">
 				    	<div class="poster">
-				      	<img src="${ctp}/images/m_babylon_2023.jpg" alt="Los Angeles" style="width:200px">
+				      	<img src="${ctp}/images/m_babylon_2023.jpg" alt="Los Angeles">
 				      </div>
 				      <div class="movie-title">영화 제목</div>
 				      <div class="movie-year-country">2023 ・ 국가이름</div>
 				      <span>평균 ★ 5.0</span>
 			      </a>
 		      </li>
-		    	<li class="recent_movie" style="width:20%; hegiht:200px;">
+		    	<li class="recent_movie">
 			    	<a href="#">
 				      	<div class="poster">
-				      	<img src="${ctp}/images/m_babylon_2023.jpg" alt="Los Angeles" style="width:200px">
+				      	<img src="${ctp}/images/m_babylon_2023.jpg" alt="Los Angeles">
 				      </div>
 				      <div class="movie-title">영화 제목</div>
 				      <div class="movie-year-country">2023 ・ 국가이름</div>
 				      <span>평균 ★ 5.0</span>
 			      </a>
 		      </li>
-		    	<li class="recent_movie" style="width:20%; hegiht:200px;">
+		    	<li class="recent_movie">
 			    	<a href="#">
 				     	<div class="poster">
-				      	<img src="${ctp}/images/m_babylon_2023.jpg" alt="Los Angeles" style="width:200px">
+				      	<img src="${ctp}/images/m_babylon_2023.jpg" alt="Los Angeles">
 				      </div>
 				      <div class="movie-title">영화 제목</div>
 				      <div class="movie-year-country">2023 ・ 국가이름</div>
@@ -141,12 +173,7 @@
   <a class="carousel-control-next" href="#Movie_Carousel" >
     <span class="carousel-control-next-icon"></span>
   </a>
-
 	</div>
-	 
-	 
-	 
-	 
 	</div>
 	<jsp:include page="/include/footer.jsp"/>
 
