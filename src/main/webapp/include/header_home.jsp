@@ -1,23 +1,40 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<% 
+		//NULL값 방지용으로 pageContext로 받아와야함 
+		int level = session.getAttribute("sLevel")==null ? 99: Integer.parseInt(session.getAttribute("sLevel")+"");
+		pageContext.setAttribute("level", level);
+%>
 <c:set var="ctp" value="${pageContext.request.contextPath}"/>
-<style>
 
+<style>
+	.header-login{
+	position:relative; 
+	width:100%;
+	height:100%;
+	float:right; 
+	display: flex;
+  justify-content: flex-end;
+	}
+	ul{
+		display:flex;
+		justify-content: flex-end;
+		align-items:center;
+	}
 	#header-search{
 		display:flex;
-	  margin: 0 25px 15px 0;
 	  padding-left: 15px;
+	  margin-right: 25px;
     position: relative;
     width: 380px;
-    height: 40px;
-    font-size: 13pt;
+    height: 32px;
+    font-size: 11pt;
     border: none;
     background-color: #f2f2f2;;
 	}
 	#searchWord{
-	 margin-bottom: 15px;
     width: 320px;
-    height: 40px;
+    height: 32px;
     font-size: 11pt;
     border: none;
     background-color: #f2f2f2;;
@@ -59,6 +76,19 @@
 	.signup-section {
  	padding: 0.3rem 0rem;
 	}	
+	
+	#btn_mypage{
+	 	background-image: url("${ctp}/images/member/noimage.jpg");
+	 	background-size : contain;
+	 	border: none;
+	  width:40px;
+	  height:40px;
+	  border-radius: 100%;
+	}
+	
+	.profile_btn{
+		margin-right:25px;
+	}
 </style>
 
 <script>
@@ -70,8 +100,8 @@ $("#btn_join").click(function(){
  });
 </script>
 	<div class="text-center" style="position:static; height:60px;" >
-	  <div class="header-login" style="position:relative; float:right; top:25%;">
-	  	<ul style="list-style:none; display:flex; vertical-align:center">
+	  <div class="header-login">
+	  	<ul style="list-style:none; margin-bottom:0px">
 	  	<li>
 	  	<form name="searchForm">
 	  		<div id="header-search" >
@@ -82,8 +112,15 @@ $("#btn_join").click(function(){
 	  		</div>
 	  	</form>
 	  	</li>
-	  	<li><button id="btn_login" data-toggle="modal" data-target="#loginModal" class="btn" style="margin-right:25px;">로그인</button></li>
-	  	<li><button id="btn_join" data-toggle="modal" data-target="#joinModal" class="btn" style="margin-right:25px;">회원가입</button></li>
+	  	<c:if test="${sLevel>3}">
+  	  	<li><button id="btn_login" data-toggle="modal" data-target="#loginModal" class="btn" style="margin-right:25px;">로그인</button></li>
+  			<li><button id="btn_join" data-toggle="modal" data-target="#joinModal" class="btn" style="margin-right:25px;">회원가입</button></li>
+	  	</c:if>
+	  	<c:if test="${sLevel<=3}">
+	  		<div class="profile_btn" >
+  	  		<li><button id="btn_mypage" onclick="location.href='${ctp}/MemberMain.mem';"></button></li>
+  	  	</div>
+	  	</c:if>
 	  	</ul>
 	  </div>
 	</div>

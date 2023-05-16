@@ -1,4 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<c:set var="ctp" value="${pageContext.request.contextPath}"/>
 <style>
  #modal-btn-login{
  	background-color: #f74444;
@@ -22,17 +24,24 @@
 		//여기 정규식 체크 (아이디, 비밀번호)
 		
 		let data = {
-			mid : mid,
-			pwd : pwd
+				mid: $("#mid").val().trim(),
+				pwd: $("#pwd").val().trim(),
 		}
 		
 		$.ajax({
 			type: "post",
 			url: "${ctp}/MemberLoginOk.mem",
 			data: data,
-			success: function(){
-				
-				location.reload();
+			success: function(res){
+				if(res=="0") alert("아이디 정보가 존재하지 않습니다.");
+				else if(res=="1") alert("비밀번호가 일치하지 않습니다.");
+				else{
+					alert("로그인 성공!");
+					location.reload();
+				}
+			},
+			error: function(){
+				alert("전송 실패!");
 			}
 		});
 	}
