@@ -9,12 +9,16 @@
 
 <style>
 	.header-login{
-	position:relative; 
+	position:fixed; 
 	width:100%;
-	height:100%;
+	height:60px;
 	float:right; 
 	display: flex;
   justify-content: flex-end;
+  z-index: 1;
+  top: 0px;
+  background-color:white;
+  border: 1.5px solid #ddd;
 	}
 	ul{
 		display:flex;
@@ -112,11 +116,11 @@ $("#btn_join").click(function(){
 	  		</div>
 	  	</form>
 	  	</li>
-	  	<c:if test="${sLevel>3}">
+	  	<c:if test="${level==99}">
   	  	<li><button id="btn_login" data-toggle="modal" data-target="#loginModal" class="btn" style="margin-right:25px;">로그인</button></li>
   			<li><button id="btn_join" data-toggle="modal" data-target="#joinModal" class="btn" style="margin-right:25px;">회원가입</button></li>
 	  	</c:if>
-	  	<c:if test="${sLevel<=3}">
+	  	<c:if test="${level<=3}">
 	  		<div class="profile_btn" >
   	  		<li><button id="btn_mypage" onclick="location.href='${ctp}/MemberMain.mem';"></button></li>
   	  	</div>

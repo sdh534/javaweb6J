@@ -1,4 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<c:set var="ctp" value="${pageContext.request.contextPath}"/>
+
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark" style=" width:100%">
   <!-- <a class="navbar-brand" href="http://localhost:9090/javaweb/">Home</a> -->
   <a class="navbar-brand" href="http://localhost:9090/javaweb6J/">홈</a>
@@ -8,7 +11,7 @@
   <div class="collapse navbar-collapse" id="collapsibleNavbar">
     <ul class="navbar-nav">
       <li class="nav-item">
-        <a class="nav-link" href="#">랭킹</a>
+        <a class="nav-link" href="${ctp}/MovieAPI2.st">랭킹</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="#">상영/예정작</a>
