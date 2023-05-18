@@ -39,7 +39,7 @@ public class MemberJoinOkCommand implements MemberInterface {
 		int res = dao.setMemberJoinOk(vo);
 		
 		if(res == 1) {
-			msg="회원가입을 축하합니다!";
+			msg="회원가입을 축하합니다! \n 재로그인 후 서비스를 이용하실 수 있습니다.";
 		}
 		else {
 			msg="회원가입 중 오류가 발생했습니다. 다시 시도해주세요.";

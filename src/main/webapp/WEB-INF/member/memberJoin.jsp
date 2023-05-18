@@ -73,9 +73,9 @@
 			      return false;
 			    }
 			});
-			$("#mid").on("change keyup paste", function(){
+			$("#mid1").on("change keyup paste", function(){
 				//여기 정규식 체크 (아이디, 비밀번호, 비밀번호 재확인, 이메일, 생년월일, 닉네임)
-		  	let mid = joinForm.mid.value.trim();
+		  	let mid = joinForm.mid1.value.trim();
 		  	
 		    if(regMid.test(mid)){
 					warn_id.style.display = "none";
@@ -169,7 +169,7 @@
 		}
 		
 		let data = {
-				mid: $("#mid").val().trim(),
+				mid: $("#mid1").val().trim(),
 				nickName: $("#nickName").val().trim(),
 				pwd: $("#pwd2").val().trim(),
 				email: $("#email").val().trim(),
@@ -204,7 +204,7 @@
           <form name="joinForm">
             <div class="form-group mb-1">
             	<span class="join-text">아이디</span>
-              <input type="text" class="form-control" id="mid" placeholder="아이디">
+              <input type="text" class="form-control" id="mid1" placeholder="아이디">
               <span class="form_warn" id="warn_id">4~20자의 영문 소문자, 숫자와 특수기호(_)만 사용 가능합니다.</span>
               <span class="form_warn" id="check_id">중복된 아이디입니다.</span>
             </div>

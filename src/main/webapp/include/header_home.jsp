@@ -8,17 +8,34 @@
 <c:set var="ctp" value="${pageContext.request.contextPath}"/>
 
 <style>
+	@font-face {
+	    font-family: 'TTTtangsbudaejjigaeB';
+	    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2212@1.0/TTTtangsbudaejjigaeB.woff2') format('woff2');
+	    font-weight: 700;
+	    font-style: normal;
+	}
+	#header{
+	 z-index: 1;
+	  top: 0px;
+	  height:60px;
+	  background-color:white;
+  	border: 1.5px solid #ddd;
+  	display:flex;
+  	justify-content: space-between;
+  	align:center;
+  	padding: 0 30px;
+	}
+	#header-banner{
+		float: left;
+		cursor: pointer;
+		display: flex;
+		align-items:center;
+		z-index:2;
+	}
 	.header-login{
-	position:fixed; 
-	width:100%;
-	height:60px;
-	float:right; 
-	display: flex;
-  justify-content: flex-end;
-  z-index: 1;
-  top: 0px;
-  background-color:white;
-  border: 1.5px solid #ddd;
+		float:right; 
+		display: flex;
+	  justify-content: flex-end;
 	}
 	ul{
 		display:flex;
@@ -31,14 +48,14 @@
 	  margin-right: 25px;
     position: relative;
     width: 380px;
-    height: 32px;
+    height: 26px;
     font-size: 11pt;
     border: none;
     background-color: #f2f2f2;;
 	}
 	#searchWord{
     width: 320px;
-    height: 32px;
+    height: 26px;
     font-size: 11pt;
     border: none;
     background-color: #f2f2f2;;
@@ -85,14 +102,46 @@
 	 	background-image: url("${ctp}/images/member/noimage.jpg");
 	 	background-size : contain;
 	 	border: none;
-	  width:40px;
-	  height:40px;
+	  width:30px;
+	  height:30px;
 	  border-radius: 100%;
 	}
 	
 	.profile_btn{
 		margin-right:25px;
 	}
+	#logo{
+		color: #f74444;
+		font-size:20pt;
+		font-family: 'TTTtangsbudaejjigaeB';
+	}
+	#logo > img{
+		background-image:  url("${ctp}/images/cinetalk.png");
+		width:40px;
+		hight:50px;
+	}
+	.navbar-nav{
+		display:flex;
+		flex-direction: initial;
+	}
+	.nav-item{
+		font-family: "GmarketSansMedium";
+		color:#aaa;
+		padding-left: 20px;
+	}
+	#searchBtn1{
+		display:none;
+	}
+
+	@media (max-width: 930px) {
+  #header-search {
+  	display:none;
+  }
+  #searchBtn1{
+  	display:block;
+  	margin-right: 25px; /* 나중에 클릭 구현하기 */
+  }
+}
 </style>
 
 <script>
@@ -104,13 +153,29 @@ $("#btn_join").click(function(){
  });
 </script>
 	<div class="text-center" style="position:static; height:60px;" >
+	<div id="header">
+	<div id="header-banner">
+	  	<div id="logo" onclick="location.href='${ctp}/Main';"><img src="${ctp}/images/cinetalk.png"/>씨네톡</div>
+	  	<ul class="navbar-nav">
+	      <li class="nav-item">
+	        <a class="nav-link" href="${ctp}/MovieAPI2.st">랭킹</a>
+	      </li>
+	      <li class="nav-item">
+	        <a class="nav-link" href="#">상영/예정작</a>
+	      </li>
+	      <li class="nav-item">
+	        <a class="nav-link" href="#">커뮤니티</a>
+	      </li>
+    	</ul>
+    </div>
 	  <div class="header-login">
 	  	<ul style="list-style:none; margin-bottom:0px">
 	  	<li>
 	  	<form name="searchForm">
+	  			<i class="fas fa-search" id="searchBtn1"></i>
 	  		<div id="header-search" >
 	  		<label>
-	  			<i class="fas fa-search"></i>
+	  			<i class="fas fa-search" id="searchBtn2"></i>
 	  			<input type="text" name="searchWord" id="searchWord" placeholder="찾고자 하는 영화, 단어, 유저를 검색해보세요." />
 	  		</label>
 	  		</div>
@@ -127,5 +192,8 @@ $("#btn_join").click(function(){
 	  	</c:if>
 	  	</ul>
 	  </div>
+	  </div>
 	</div>
+	
+	
 	

@@ -7,16 +7,19 @@
 	<meta charset="UTF-8">
 	<title>씨네톡  |  홈</title>
 	<jsp:include page="/include/bs4.jsp" />
+	<link href="${ctp}/images/cinetalk.ico" rel="shortcut icon" type="image/x-icon">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
   <style>
   .container{
   	padding:0;
   }
-  .movie_list {
+  li {
  	 	list-style: none;
-  
   }
-  .recent_movie {
+  .movie_list{
+  	display:block;
+  }
+  .recent-movie {
   	float: left;
   	width: 20%;
   	padding: 7px;
@@ -29,13 +32,11 @@
   .poster {
   	width: 100%;
   }
-  
   .poster-img > img{
 	position: relative;
   width: 100%;
   border-radius: 7px;
   }
-  
   h3{
    font-family: "GmarketSansMedium";
    font-weight: 1000;
@@ -47,7 +48,7 @@
   .carousel-control-next, .carousel-control-prev{
   width:10%
   }
-	.carousel-item{
+	.carousel-item{ 
 		margin-left:-2%;
 	}
 	.poster-ranking{
@@ -60,33 +61,33 @@
 	padding:5px;
 	width:30px;
 	background-color: rgba(0,0,0, 0.7);
-	border: 1px solid black;
 	border-radius: 7px;
 	color: white;
+	}
 	
+	.movie-year-country{
+	font-size:10pt;
 	}
   </style>
   <script>
+  
   $(document).ready(function(){
-	  $(".Movie_Carousel").carousel("pause");
+	  $(".Movie_Carousel1").carousel("pause");
 	  
 	// Enable Carousel Indicators
 	  $(".item1").click(function(){
-	    $(".Movie_Carousel").carousel(0);
+	    $(".Movie_Carousel1").carousel(0);
 	  });
 	  $(".item2").click(function(){
-	    $(".Movie_Carousel").carousel(1);
-	  });
-	  $(".item3").click(function(){
-	    $(".Movie_Carousel").carousel(2);
+	    $(".Movie_Carousel1").carousel(1);
 	  });
 	    
 	  // Enable Carousel Controls
 	  $(".carousel-control-prev").click(function(){
-	    $(".Movie_Carousel").carousel("prev");
+	    $(".Movie_Carousel1").carousel("prev");
 	  });
 	  $(".carousel-control-next").click(function(){
-	    $(".Movie_Carousel").carousel("next");
+	    $(".Movie_Carousel1").carousel("next");
 	  });
 	  
  
@@ -98,276 +99,58 @@
 
 <body>
 	<jsp:include page="/include/header.jsp"/>
-	<div class="container-xl" style="margin-top:30px">
-	<!-- 로그인&회원가입 모달 -->
-	<jsp:include page="/WEB-INF/member/memberLogin.jsp"/>
-	<jsp:include page="/WEB-INF/member/memberJoin.jsp"/>
 	
-	<!-- 처음 Carousel -->
-	<div class="Movie_Carousel carousel slide" data-interval="500">
-  <!-- Indicators -->
-  <ul class="carousel-indicators" >
-    <li data-target="#demo" data-slide-to="0" class="active"></li>
-    <li data-target="#demo" data-slide-to="1"></li>
-    <li data-target="#demo" data-slide-to="2"></li>
-  </ul>
-
-  <!-- The slideshow -->
-  <div class="carousel-inner">
-	  <h3>최근 리뷰 <font color="#f74444">TOP 20</font></h3>
-	    <div class="carousel-item active">
-		    <ul class="movie_list">
-		    	<li class="recent_movie">
-			    	<a href="#">
-			    		<div class="poster">
-				      	<div class="poster-img"><img src="${ctp}/images/m_babylon_2023.jpg" alt="Los Angeles"></div>
-			    			<div class="poster-ranking">1</div>
-				      </div>
-				      <div class="movie-title">바빌론</div>
-				      <div class="movie-year-country">2023 ・ 미국</div>
-				      <span>평균 ★ 5.0</span>
-			      </a>
-		      </li>
-		    	<li class="recent_movie">
-			    	<a href="#">
-							<div class="poster">
-				      	<div class="poster-img"><img src="${ctp}/images/m_babylon_2023.jpg" alt="Los Angeles"></div>
-				      </div>		      <div class="movie-title">영화 제목</div>
-				      <div class="movie-year-country">2023 ・ 국가이름</div>
-				      <span>평균 ★ 5.0</span>
-			      </a>
-		      </li>
-		    	<li class="recent_movie">
-			    	<a href="#">
-				    	<div class="poster">
-				      	<div class="poster-img"><img src="${ctp}/images/m_babylon_2023.jpg" alt="Los Angeles"></div>
-				      </div>
-				      <div class="movie-title">영화 제목</div>
-				      <div class="movie-year-country">2023 ・ 국가이름</div>
-				      <span>평균 ★ 5.0</span>
-			      </a>
-		      </li>
-		    	<li class="recent_movie">
-			    	<a href="#">
-				      	<div class="poster">
-				      	<div class="poster-img"><img src="${ctp}/images/m_babylon_2023.jpg" alt="Los Angeles"></div>
-				      </div>
-				      <div class="movie-title">영화 제목</div>
-				      <div class="movie-year-country">2023 ・ 국가이름</div>
-				      <span>평균 ★ 5.0</span>
-			      </a>
-		      </li>
-		    	<li class="recent_movie">
-			    	<a href="#">
-				     	<div class="poster">
-				      	<div class="poster-img"><img src="${ctp}/images/m_babylon_2023.jpg" alt="Los Angeles"></div>
-				      </div>
-				      <div class="movie-title">영화 제목</div>
-				      <div class="movie-year-country">2023 ・ 국가이름</div>
-				      <span>평균 ★ 5.0</span>
-			      </a>
-		      </li>
-		     </ul>
-	    </div>
-	    <div class="carousel-item">
-	      <img src="chicago.jpg" alt="Chicago">
-	      <img src="chicago.jpg" alt="Chicago">
-	      <img src="chicago.jpg" alt="Chicago">
-	    </div>
-	    <div class="carousel-item">
-	      <img src="ny.jpg" alt="New York">
-	      <img src="ny.jpg" alt="New York">
-	      <img src="ny.jpg" alt="New York">
-	    </div>
-  </div>
-
-  <!-- Left and right controls -->
-  <a class="carousel-control-prev" href="#Movie_Carousel" >
-    <span class="carousel-control-prev-icon"></span>
-  </a>
-  <a class="carousel-control-next" href="#Movie_Carousel" >
-    <span class="carousel-control-next-icon"></span>
-  </a>
+	<div class="full-screen" style="margin:10px 70px 0 70px">
+		<!-- 로그인&회원가입 모달 -->
+		<jsp:include page="/WEB-INF/member/memberLogin.jsp"/>
+		<jsp:include page="/WEB-INF/member/memberJoin.jsp"/>
+	
+	
+			<!-- 처음 Carousel -->
+		<div class="Movie_Carousel1 carousel slide" data-interval="500">
+	  <!-- Indicators -->
+	  <ul class="carousel-indicators" >
+	    <li data-target="#demo" data-slide-to="0" class="active"></li>
+	    <li data-target="#demo" data-slide-to="1"></li>
+	  </ul>
+	
+	  <!-- The slideshow -->
+	  <div class="carousel-inner">
+		  <h3>💥화제의 감독 <font color="#f74444">크리스토퍼 놀란</font></h3>
+	       <c:forEach var="movie_items" items="${main1_vos}" varStatus="st1"> 
+		    	<!-- 1~5위 -->
+		    	<c:if test="${st1.first}"> <!-- 처음일때만 열어줌 -->
+		    		<div class="carousel-item active">
+		    		<ul class="movie_list">
+		    	</c:if>
+			    	<li class="recent-movie">
+				    	<a href="${ctp}/MoviePage.mo?idx=${movie_items.idx}">
+				    		<div class="poster">
+						      <div class="poster-img"><img src="${movie_items.poster}" alt="${movie_items.title}"></div>
+					    		<div class="poster-ranking">${st1.count}</div>
+						      <div class="movie-infor">
+							      <div class="movie-title">${movie_items.title}</div>
+							      <div class="movie-year-country">${movie_items.rYear} ・ ${movie_items.country}</div>
+							      <span>평균 ★ ${movie_items.rating}</span>
+						      </div>
+					      </div>
+				      </a>
+			      </li>
+			       <!-- carousel-item active 닫고 새로운 carousel-item생성 -->
+			     	<c:if test="${st1.count%5==0 && !st1.last}"></ul></div><div class="carousel-item"><ul class="movie_list"></c:if> 
+			    	<c:if test="${st1.last}"></ul></div></c:if><!-- carousel-item 닫음 -->
+			     </c:forEach>
+		  
+		  <!-- Left and right controls -->
+		  <a class="carousel-control-prev" href="#Movie_Carousel1" >
+		    <span class="carousel-control-prev-icon"></span>
+		  </a>
+		  <a class="carousel-control-next" href="#Movie_Carousel1" >
+		    <span class="carousel-control-next-icon"></span>
+		  </a>
+	  </div> <!-- carousel - inner 닫힘 -->
 	</div>
-	
-		<!-- 처음 Carousel -->
-	<div class="Movie_Carousel carousel slide" data-interval="500">
-  <!-- Indicators -->
-  <ul class="carousel-indicators" >
-    <li data-target="#demo" data-slide-to="0" class="active"></li>
-    <li data-target="#demo" data-slide-to="1"></li>
-    <li data-target="#demo" data-slide-to="2"></li>
-  </ul>
-
-  <!-- The slideshow -->
-  <div class="carousel-inner">
-	  <h3>최근 리뷰 <font color="#f74444">TOP 20</font></h3>
-	    <div class="carousel-item active">
-		    <ul class="movie_list">
-		    	<li class="recent_movie">
-			    	<a href="#">
-			    		<div class="poster">
-				      	<div class="poster-img"><img src="${ctp}/images/m_babylon_2023.jpg" alt="Los Angeles"></div>
-			    			<div class="poster-ranking">1</div>
-				      </div>
-				      <div class="movie-title">바빌론</div>
-				      <div class="movie-year-country">2023 ・ 미국</div>
-				      <span>평균 ★ 5.0</span>
-			      </a>
-		      </li>
-		    	<li class="recent_movie">
-			    	<a href="#">
-							<div class="poster">
-				      	<div class="poster-img"><img src="${ctp}/images/m_babylon_2023.jpg" alt="Los Angeles"></div>
-				      </div>		      <div class="movie-title">영화 제목</div>
-				      <div class="movie-year-country">2023 ・ 국가이름</div>
-				      <span>평균 ★ 5.0</span>
-			      </a>
-		      </li>
-		    	<li class="recent_movie">
-			    	<a href="#">
-				    	<div class="poster">
-				      	<div class="poster-img"><img src="${ctp}/images/m_babylon_2023.jpg" alt="Los Angeles"></div>
-				      </div>
-				      <div class="movie-title">영화 제목</div>
-				      <div class="movie-year-country">2023 ・ 국가이름</div>
-				      <span>평균 ★ 5.0</span>
-			      </a>
-		      </li>
-		    	<li class="recent_movie">
-			    	<a href="#">
-				      	<div class="poster">
-				      	<div class="poster-img"><img src="${ctp}/images/m_babylon_2023.jpg" alt="Los Angeles"></div>
-				      </div>
-				      <div class="movie-title">영화 제목</div>
-				      <div class="movie-year-country">2023 ・ 국가이름</div>
-				      <span>평균 ★ 5.0</span>
-			      </a>
-		      </li>
-		    	<li class="recent_movie">
-			    	<a href="#">
-				     	<div class="poster">
-				      	<div class="poster-img"><img src="${ctp}/images/m_babylon_2023.jpg" alt="Los Angeles"></div>
-				      </div>
-				      <div class="movie-title">영화 제목</div>
-				      <div class="movie-year-country">2023 ・ 국가이름</div>
-				      <span>평균 ★ 5.0</span>
-			      </a>
-		      </li>
-		     </ul>
-	    </div>
-	    <div class="carousel-item">
-	      <img src="chicago.jpg" alt="Chicago">
-	      <img src="chicago.jpg" alt="Chicago">
-	      <img src="chicago.jpg" alt="Chicago">
-	    </div>
-	    <div class="carousel-item">
-	      <img src="ny.jpg" alt="New York">
-	      <img src="ny.jpg" alt="New York">
-	      <img src="ny.jpg" alt="New York">
-	    </div>
-  </div>
-
-  <!-- Left and right controls -->
-  <a class="carousel-control-prev" href="#Movie_Carousel" >
-    <span class="carousel-control-prev-icon"></span>
-  </a>
-  <a class="carousel-control-next" href="#Movie_Carousel" >
-    <span class="carousel-control-next-icon"></span>
-  </a>
-	</div>
-	
-		<!-- 처음 Carousel -->
-	<div class="Movie_Carousel carousel slide" data-interval="500">
-  <!-- Indicators -->
-  <ul class="carousel-indicators" >
-    <li data-target="#demo" data-slide-to="0" class="active"></li>
-    <li data-target="#demo" data-slide-to="1"></li>
-    <li data-target="#demo" data-slide-to="2"></li>
-  </ul>
-
-  <!-- The slideshow -->
-  <div class="carousel-inner">
-	  <h3>최근 리뷰 <font color="#f74444">TOP 20</font></h3>
-	    <div class="carousel-item active">
-		    <ul class="movie_list">
-		    	<li class="recent_movie">
-			    	<a href="#">
-			    		<div class="poster">
-				      	<div class="poster-img"><img src="${ctp}/images/m_babylon_2023.jpg" alt="Los Angeles"></div>
-			    			<div class="poster-ranking">1</div>
-				      </div>
-				      <div class="movie-title">바빌론</div>
-				      <div class="movie-year-country">2023 ・ 미국</div>
-				      <span>평균 ★ 5.0</span>
-			      </a>
-		      </li>
-		    	<li class="recent_movie">
-			    	<a href="#">
-							<div class="poster">
-				      	<div class="poster-img"><img src="${ctp}/images/m_babylon_2023.jpg" alt="Los Angeles"></div>
-				      </div>		      <div class="movie-title">영화 제목</div>
-				      <div class="movie-year-country">2023 ・ 국가이름</div>
-				      <span>평균 ★ 5.0</span>
-			      </a>
-		      </li>
-		    	<li class="recent_movie">
-			    	<a href="#">
-				    	<div class="poster">
-				      	<div class="poster-img"><img src="${ctp}/images/m_babylon_2023.jpg" alt="Los Angeles"></div>
-				      </div>
-				      <div class="movie-title">영화 제목</div>
-				      <div class="movie-year-country">2023 ・ 국가이름</div>
-				      <span>평균 ★ 5.0</span>
-			      </a>
-		      </li>
-		    	<li class="recent_movie">
-			    	<a href="#">
-				      	<div class="poster">
-				      	<div class="poster-img"><img src="${ctp}/images/m_babylon_2023.jpg" alt="Los Angeles"></div>
-				      </div>
-				      <div class="movie-title">영화 제목</div>
-				      <div class="movie-year-country">2023 ・ 국가이름</div>
-				      <span>평균 ★ 5.0</span>
-			      </a>
-		      </li>
-		    	<li class="recent_movie">
-			    	<a href="#">
-				     	<div class="poster">
-				      	<div class="poster-img"><img src="${ctp}/images/m_babylon_2023.jpg" alt="Los Angeles"></div>
-				      </div>
-				      <div class="movie-title">영화 제목</div>
-				      <div class="movie-year-country">2023 ・ 국가이름</div>
-				      <span>평균 ★ 5.0</span>
-			      </a>
-		      </li>
-		     </ul>
-	    </div>
-	    <div class="carousel-item">
-	      <img src="chicago.jpg" alt="Chicago">
-	      <img src="chicago.jpg" alt="Chicago">
-	      <img src="chicago.jpg" alt="Chicago">
-	    </div>
-	    <div class="carousel-item">
-	      <img src="ny.jpg" alt="New York">
-	      <img src="ny.jpg" alt="New York">
-	      <img src="ny.jpg" alt="New York">
-	    </div>
-  </div>
-
-  <!-- Left and right controls -->
-  <a class="carousel-control-prev" href="#Movie_Carousel" >
-    <span class="carousel-control-prev-icon"></span>
-  </a>
-  <a class="carousel-control-next" href="#Movie_Carousel" >
-    <span class="carousel-control-next-icon"></span>
-  </a>
-	</div>
-	
-	
-	
-	</div>
-	<jsp:include page="/include/footer.jsp"/>
-
+</div>
+<jsp:include page="/include/footer.jsp"/>
 </body>
 </html>

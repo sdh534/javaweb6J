@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <c:set var="ctp" value="${pageContext.request.contextPath}"/>
-
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark" style=" width:100%">
   <!-- <a class="navbar-brand" href="http://localhost:9090/javaweb/">Home</a> -->
   <a class="navbar-brand" href="http://localhost:9090/javaweb6J/">홈</a>

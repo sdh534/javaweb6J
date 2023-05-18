@@ -27,6 +27,8 @@ public class MemberController extends HttpServlet{
 			viewPage += "/memberJoin.jsp";
 		}
 		else if(com.equals("/MemberMain")) {
+			command = new MemberMainCommand();
+			command.execute(request, response);
 			viewPage += "/memberMain.jsp";
 		}
 		else if(com.equals("/MemberLoginOk")) {
@@ -46,6 +48,11 @@ public class MemberController extends HttpServlet{
 		}
 		else if(com.equals("/MemberJoinOk")) {
 			command = new MemberJoinOkCommand();
+			command.execute(request, response);
+			return;
+		}
+		else if(com.equals("/MemberPhotoUpadte")) {
+			command = new MemberPhotoUpadteCommand();
 			command.execute(request, response);
 			return;
 		}

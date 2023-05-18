@@ -89,13 +89,17 @@ public class StudyMovieAPI implements StudyInterface {
 					JSONObject ActorsObj = (JSONObject)parser.parse(ActorsStr); // {}로 묶인 객체 뽑기
 					String ActorStr = ActorsObj.get("actor").toString(); 
 					JSONArray actorArray = (JSONArray) parser.parse(ActorStr);//이제 []로 시작하는 배열에서 다시 directorNm뽑기
-					String actors = ((JSONObject) actorArray.get(0)).get("actorNm").toString();
+					String actors="";
+					for(int a=0; a<actorArray.size(); a++) {
+						actors += ((JSONObject) actorArray.get(a)).get("actorNm").toString()+"/";
+					}
+					actors = actors.substring(0, actors.lastIndexOf("/"));
 					
 					
 					str += movie.get("title") + "(" + movie.get("prodYear")+")  | " + movie.get("posters")  
-					+ movie.get("nation")  + "  |  "   +  movie.get("genre") + "<br/>"
+					+ movie.get("nation")  + "  |  "   +  movie.get("genre").toString().replace(",", "/") + "<br/>"
  					+ director.get("directorNm") + "  |  " + movie.get("keywords")  + movie.get("posters")
- 					+ plot.get("plotText") + " | "  + actorArray.toString()
+ 					+ plot.get("plotText") + " | "  +actors.toString() + " | " + movie.get("keywords").toString().replace(",", "/")
  					+ "<br/><br/>";
 				}
 				

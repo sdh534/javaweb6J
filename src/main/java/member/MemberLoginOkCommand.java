@@ -44,6 +44,7 @@ public class MemberLoginOkCommand implements MemberInterface {
 		//이 외의 경우: 로그인 성공! 세션 처리해주기
 			HttpSession session = request.getSession();
 			session.setAttribute("sMid", mid);
+			session.setAttribute("sNickName", vo.getNickName());
 			session.setAttribute("sLevel", vo.getM_level()+"");
 			res="2"; //로그인 성공 
 			response.getWriter().write(res);

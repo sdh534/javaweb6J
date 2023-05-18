@@ -50,6 +50,7 @@ public class moveiAPI_study1 {
 	    
 	    JSONParser parser = new JSONParser();
 	    try {
+	    	
 				JSONObject obj = (JSONObject) parser.parse(sb.toString());
 				String data = obj.get("Data").toString();
 				
@@ -63,6 +64,8 @@ public class moveiAPI_study1 {
 					str += movie.get("title") + "(" + movie.get("prodYear")+")  | " + movie.get("posters")  
 					+ movie.get("nation")  + "  |  "   +  movie.get("genre");
 				}
+				
+				
 				
 				sb.setLength(0);
 				rd.close();
