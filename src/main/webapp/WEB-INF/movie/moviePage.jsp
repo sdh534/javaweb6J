@@ -161,7 +161,10 @@
 	/*미디어 쿼리*/
 	
 	</style>
+	<script>
+		'use strict';
 	
+	</script>
 
 </head>
 <body id="movie-main">
@@ -191,25 +194,42 @@
 				<div id="star-rating-empty">
 					★★★★★
 					<span id="star-rating-checked">★★★★★</span>
-			  <input type="range" id="star-rating-range" value="0" step="1" min="0" max="10"/>
-			  
+			  <input type="range" id="star-rating-range" value="0" step="1" min="0" max="10" onclick="rWrite()"/>
 				  <script>
-		      var result = $(".result");
-		      var slider = $("#star-rating-range")
-		      slider.on('input', function() {
-		          result.html( $(this).val()/2 );
-		          let width = $(this).val()*10;
-		          $("#star-rating-checked").css("width", width+"%");
-		          
-		          
+	     	 	var width=0;
+		      document.querySelector("#star-rating-range").addEventListener("mousemove",function(event){
+		      		width =parseInt((event.offsetX+10)/20)*10;
+		         $("#star-rating-checked").css("width", width+"%");
 		      });
+		      $("#star-rating-range").on("click", function(){
+		    	  const Toast = Swal.mixin({
+		    		    toast: true,
+		    		    position: 'center',
+		    		    showConfirmButton: false,
+		    		    timer: 1350,
+		    		    timerProgressBar: true,
+		    		    didOpen: (toast) => {
+		    		        toast.addEventListener('mouseenter', Swal.stopTimer)
+		    		        toast.addEventListener('mouseleave', Swal.resumeTimer)
+		    		    }
+		    		})
+		    		Toast.fire({
+		    		    icon: 'success',
+		    		    title: '별점이 등록되었어요!'
+		    		})
+						$("#star-rating-checked").val(width);
+			 			$("#user-rating-result").html("★ " + width/20); //이값을 DB로 전송 - AJAX처리 
+					});
 				</script>
 				</div>
 			</div>
 			<div class="line-hr"></div>
-			<div class="detail-title mt-3">
+			<div class="detail-title ">
 				<font style="font-size:17pt;">
-				<i class="fa-solid fa-pen fa-2xs"></i>&nbsp;&nbsp;코멘트
+				<button id="btn_review" data-toggle="modal" data-target="#reviewModal" class="btn" style="font-size:20pt;">
+					<i class="fa-solid fa-pen fa-2xs"></i>&nbsp;&nbsp;코멘트				
+				</button>
+				<jsp:include page="/WEB-INF/movie/movieReview.jsp"/>
 				</font>
 			</div>
 		</div>
