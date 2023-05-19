@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import member.MemberNickNameCheckCommand;
+
 @WebServlet("*.mo")
 public class MovieController extends HttpServlet{
 	@Override
@@ -25,7 +27,11 @@ public class MovieController extends HttpServlet{
 			command.execute(request, response);
 			viewPage += "/moviePage.jsp";
 		}
-		
+		else if(com.equals("/MovieAutoSearch")) {
+			command = new MovieAutoSearch();
+			command.execute(request, response);
+			return;
+		}
 		RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
 		dispatcher.forward(request, response);
 	}

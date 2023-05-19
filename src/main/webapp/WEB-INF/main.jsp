@@ -74,20 +74,24 @@
   $(document).ready(function(){
 	  $(".Movie_Carousel1").carousel("pause");
 	  
-	// Enable Carousel Indicators
-	  $(".item1").click(function(){
-	    $(".Movie_Carousel1").carousel(0);
-	  });
-	  $(".item2").click(function(){
-	    $(".Movie_Carousel1").carousel(1);
-	  });
-	    
+
 	  // Enable Carousel Controls
-	  $(".carousel-control-prev").click(function(){
+	  $("#prev-control1").click(function(){
 	    $(".Movie_Carousel1").carousel("prev");
 	  });
-	  $(".carousel-control-next").click(function(){
+	  $("#next-control1").click(function(){
 	    $(".Movie_Carousel1").carousel("next");
+	  });
+	  
+ 
+	  $(".Movie_Carousel2").carousel("pause");
+	  
+	  // Enable Carousel Controls
+	  $("#prev-control2").click(function(){
+	    $(".Movie_Carousel2").carousel("prev");
+	  });
+	  $("#next-control2").click(function(){
+	    $(".Movie_Carousel2").carousel("next");
 	  });
 	  
  
@@ -101,10 +105,6 @@
 	<jsp:include page="/include/header.jsp"/>
 	
 	<div class="full-screen" style="margin:10px 70px 0 70px">
-		<!-- 로그인&회원가입 모달 -->
-		<jsp:include page="/WEB-INF/member/memberLogin.jsp"/>
-		<jsp:include page="/WEB-INF/member/memberJoin.jsp"/>
-	
 	
 			<!-- 처음 Carousel -->
 		<div class="Movie_Carousel1 carousel slide" data-interval="500">
@@ -113,7 +113,6 @@
 	    <li data-target="#demo" data-slide-to="0" class="active"></li>
 	    <li data-target="#demo" data-slide-to="1"></li>
 	  </ul>
-	
 	  <!-- The slideshow -->
 	  <div class="carousel-inner">
 		  <h3>💥화제의 감독 <font color="#f74444">크리스토퍼 놀란</font></h3>
@@ -142,13 +141,60 @@
 			     </c:forEach>
 		  
 		  <!-- Left and right controls -->
-		  <a class="carousel-control-prev" href="#Movie_Carousel1" >
+		  <a class="carousel-control-prev"  id="prev-control1" href="#Movie_Carousel1" >
 		    <span class="carousel-control-prev-icon"></span>
 		  </a>
-		  <a class="carousel-control-next" href="#Movie_Carousel1" >
+		  <a class="carousel-control-next"  id="next-control1" href="#Movie_Carousel1" >
 		    <span class="carousel-control-next-icon"></span>
 		  </a>
 	  </div> <!-- carousel - inner 닫힘 -->
+	  
+	  
+	  			<!--  Carousel 2 -->
+		<div class="Movie_Carousel2 carousel slide" data-interval="500">
+	  <!-- Indicators -->
+	  <ul class="carousel-indicators" >
+	    <li data-target="#demo" data-slide-to="0" class="active"></li>
+	    <li data-target="#demo" data-slide-to="1"></li>
+	  </ul>
+	  <!-- The slideshow -->
+	  <div class="carousel-inner">
+		  <h3>🎶노래해요! <font color="#f74444">OST가 좋은 </font>영화 모음집</h3>
+	       <c:forEach var="movie_items2" items="${main2_vos}" varStatus="st2"> 
+		    	<!-- 1~5위 -->
+		    	<c:if test="${st2.first}"> <!-- 처음일때만 열어줌 -->
+		    		<div class="carousel-item active">
+		    		<ul class="movie_list">
+		    	</c:if>
+			    	<li class="recent-movie">
+				    	<a href="${ctp}/MoviePage.mo?idx=${movie_items2.idx}">
+				    		<div class="poster">
+						      <div class="poster-img"><img src="${movie_items2.poster}" alt="${movie_items2.title}"></div>
+					    		<div class="poster-ranking">${st2.count}</div>
+						      <div class="movie-infor">
+							      <div class="movie-title">${movie_items2.title}</div>
+							      <div class="movie-year-country">${movie_items2.rYear} ・ ${movie_items2.country}</div>
+							      <span>평균 ★ ${movie_items2.rating}</span>
+						      </div>
+					      </div>
+				      </a>
+			      </li>
+			       <!-- carousel-item active 닫고 새로운 carousel-item생성 -->
+			     	<c:if test="${st2.count%5==0 && !st2.last}"></ul></div><div class="carousel-item"><ul class="movie_list"></c:if> 
+			    	<c:if test="${st2.last}"></ul></div></c:if><!-- carousel-item 닫음 -->
+			     </c:forEach>
+		  
+		  <!-- Left and right controls -->
+		  <a class="carousel-control-prev" id="prev-control2" href="#Movie_Carousel2" >
+		    <span class="carousel-control-prev-icon"></span>
+		  </a>
+		  <a class="carousel-control-next control2"  id="next-control2" href="#Movie_Carousel2" >
+		    <span class="carousel-control-next-icon"></span>
+		  </a>
+	  </div> <!-- carousel - inner 닫힘 -->
+	  
+	  
+	  
 	</div>
 </div>
 <jsp:include page="/include/footer.jsp"/>

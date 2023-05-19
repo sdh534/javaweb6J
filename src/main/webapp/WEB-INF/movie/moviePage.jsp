@@ -17,11 +17,18 @@
     font-weight: normal;
     font-style: normal;
 	}
-	.detail-top{
-		height: 500px;
+	#movie-main{
+		background-color: #eee;
 	}
-	.detail-movie-top{
-	
+	.detail-top{
+		width:100%;
+		height: 200px;
+		background-color: white;
+		border-bottom: 1.5px solid #ddd;
+	}
+	.detail-movie-top, .detail-bottom-container{
+		margin-left:10%;
+		margin-right:10%;
 	}
 	.detail-trailer{
 			position: relative;
@@ -30,32 +37,34 @@
 			background-color: blue;
 		}
 	.detail-poster{
-		position: absolute;
-		top:250px;
-		padding-left:5%;
-		margin-right:10px;
+		width:200px;
+		float:left;
+		margin-right:30px;
+		margin-left:40px;
+		transform: translateY(-160px);
 	}
 	.poster-img > img{
-		width:80%;
+		width:100%;
 		border: 4px solid white;
 		border-radius: 7px;
 	}
 	.detail-text{
-		width:450px;
+		display:inline-block;
 		font-family: 'NEXON Lv1 Gothic OTF';
-		margin-left: 280px;
 		padding-top: 15px;
 		float:left;
+		margin-right: 40px;
 	}
 	
 	.detail-title {
+		font-family: 'NEXON Lv1 Gothic OTF';
 		font-weight: 1000;
 	}
 	#rating-result, #star-rating-result, #user-result{
 		color: #aaa;
 	}
 	.bigger {
-		font-size: 48px;
+		font-size: 38px;
 	}
 	.checked {
   color: orange;
@@ -69,77 +78,161 @@
 		width:30px;
 		height:30px;
 	}
+	.detail-movie-content{}
+	.detail-bottom{
+		background-color: white;
+		display:flex;
+		margin:30px;		
+		padding:40px;
+		border-radius: 7px;
+		overflow: auto;
+    padding: 40px;
+	}
+	.detail-bottom-text{
+		width:100%;
+		font-family: 'NEXON Lv1 Gothic OTF';
+		padding-top: 15px;
+		float:left;
+	}
+	.line{
+		height: 160px;
+    width: 1px;
+    float: left;
+    margin-top: 15px;
+    background-color: #ccc;
+    margin-right:40px;
+	}
+	.line-hr{
+		height: 1px;
+    width: 350px;
+    float: left;
+    margin-top: 15px;
+    background-color: #ccc;
+    margin-bottom:5px;
+	}
+	.detail-top-bottom{
+		display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-content: center;
+	}
 	/*      별점 레이팅          */
+	.user-rating{
+		margin-top: 15px;
+	  font-family: 'NEXON Lv1 Gothic OTF';
+    float: left;
+    width: 320px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+   }
+	#user-rating-result{
+		clear:both;
+		margin-bottom:5px;
+	}
+
+	#star-rating-range{
+	 	width: 100%;
+		height: 50%;
+    position: absolute;
+    cursor: pointer;
+    top: 10px;
+    opacity: 0;
+    left: 0;
+	}
+
+	#star-rating-empty {
+		position: relative;
+		color:#ccc;
+		display:inline-block;
+		font-size:32pt;
+	}
+	#star-rating-empty > span {
+		position: absolute;
+		color: orange;
+		width: 0;
+		top:0;
+		left: 0;
+		overflow:hidden;
+		pointer-events: none;
+	}
+	
+	
+	/*미디어 쿼리*/
+	
 	</style>
+	
+
 </head>
-<body>
+<body id="movie-main">
 <jsp:include page="/include/header.jsp"/>
 	<div class="detail-trailer"></div>
-<div class="container">
-<div class="detail-top">
-	<div class="detail-movie-top">
-	<div class="detail-poster"><div class="poster-img"><img src="${vo.poster}" alt="${vo.title}"></div></div>
-	<div class="detail-text">
-		<div class="detail-title bigger">${vo.title}</div>
-		<div class="detail-content">${vo.rYear}・${vo.genre}・${vo.country}</div>
-		<div class="rating"> 
-			<div id="rating-result">별점</div>
-			<span class="fa fa-xl fa-star checked"></span>
-			<span class="fa fa-xl fa-star checked"></span>
-			<span class="fa fa-xl fa-star checked"></span>
-			<span class="fa fa-xl fa-star"></span>
-			<span class="fa fa-xl fa-star"></span>
-		</div>
-	</div></div>
-		<div class="user-rating">	 <!-- 이부분은...! 전송을 해야 하는 부분... AJAX 처리! -->
-			<div id="user-result">평가하기</div>
-				<div class="startRadio">
-					<label class="startRadio__box">
-						<input type="radio" name="star" id="">
-						<span class="startRadio__img"><span class="blind">별 1개</span></span>
-					</label>
-					<label class="startRadio__box">
-						<input type="radio" name="star" id="">
-						<span class="startRadio__img"><span class="blind">별 1.5개</span></span>
-					</label>
-					<label class="startRadio__box">
-						<input type="radio" name="star" id="">
-						<span class="startRadio__img"><span class="blind">별 2개</span></span>
-					</label>
-					<label class="startRadio__box">
-						<input type="radio" name="star" id="">
-						<span class="startRadio__img"><span class="blind">별 2.5개</span></span>
-					</label>
-					<label class="startRadio__box">
-						<input type="radio" name="star" id="">
-						<span class="startRadio__img"><span class="blind">별 3개</span></span>
-					</label>
-					<label class="startRadio__box">
-						<input type="radio" name="star" id="">
-						<span class="startRadio__img"><span class="blind">별 3.5개</span></span>
-					</label>
-					<label class="startRadio__box">
-						<input type="radio" name="star" id="">
-						<span class="startRadio__img"><span class="blind">별 4개</span></span>
-					</label>
-					<label class="startRadio__box">
-						<input type="radio" name="star" id="">
-						<span class="startRadio__img"><span class="blind">별 4.5개</span></span>
-					</label>
-					<label class="startRadio__box">
-						<input type="radio" name="star" id="">
-						<span class="startRadio__img"><span class="blind">별 5개</span></span>
-					</label>
-					<label class="startRadio__box">
-						<input type="radio" name="star" id="">
-						<span class="startRadio__img"><span class="blind">별 5.5개</span></span>
-					</label>
+	<div class="detail-top-bottom">
+	<div class="detail-top">
+		<div class="detail-movie-top">
+			<div class="detail-poster"><div class="poster-img"><img src="${vo.poster}" alt="${vo.title}"></div></div>
+			<div class="detail-text">
+				<div class="detail-title bigger">${vo.title}</div>
+				<div class="detail-content">${vo.rYear}・${vo.genre}・${vo.country}</div>
+				<div class="rating"> 
+					<div id="rating-result">별점</div>
+					<span class="fa fa-xl fa-star checked"></span>
+					<span class="fa fa-xl fa-star checked"></span>
+					<span class="fa fa-xl fa-star checked"></span>
+					<span class="fa fa-xl fa-star"></span>
+					<span class="fa fa-xl fa-star"></span>
 				</div>
 			</div>
+		<div class="line"></div>
+		</div>
+		<div class="user-rating">	 <!-- 이부분은...! 전송을 해야 하는 부분... AJAX 처리! -->
+			<div id="user-rating-result">평가하기</div>
+			<div id="star-rating">
+				<div id="star-rating-empty">
+					★★★★★
+					<span id="star-rating-checked">★★★★★</span>
+			  <input type="range" id="star-rating-range" value="0" step="1" min="0" max="10"/>
+			  
+				  <script>
+		      var result = $(".result");
+		      var slider = $("#star-rating-range")
+		      slider.on('input', function() {
+		          result.html( $(this).val()/2 );
+		          let width = $(this).val()*10;
+		          $("#star-rating-checked").css("width", width+"%");
+		          
+		          
+		      });
+				</script>
+				</div>
+			</div>
+			<div class="line-hr"></div>
+			<div class="detail-title mt-3">
+				<font style="font-size:17pt;">
+				<i class="fa-solid fa-pen fa-2xs"></i>&nbsp;&nbsp;코멘트
+				</font>
+			</div>
+		</div>
 	</div>
-
-		
-</div>
+	<div class="detail-bottom-container">
+		<div class="detail-bottom">
+			<div class="detail-movie-content">
+				<div class="detail-title" style="font-size:20pt;">기본 정보</div>
+				<div class="detail-bottom-text">
+				(영제명)<br/>
+				(상영 시간) ・ (관람제한)<br/>
+				${vo.rYear} ・ ${vo.country}	<br/>
+				<br/>
+				${vo.story}	
+				<br/><br/>
+				<hr/>
+				<div class="detail-title" style="font-size:20pt;">출연 / 제작</div>
+				<!-- 여기 테이블 넣으면 조을거가튼뎅... -->
+				</div>
+			</div>
+		</div>
+		</div>
+	</div>
 <p><br/></p>
 <jsp:include page="/include/footer.jsp"/>
 </body>

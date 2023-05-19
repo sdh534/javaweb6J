@@ -18,12 +18,15 @@
 	 z-index: 1;
 	  top: 0px;
 	  height:60px;
+	  position:fixed;
+	  width:100%;
 	  background-color:white;
   	border: 1.5px solid #ddd;
   	display:flex;
   	justify-content: space-between;
   	align:center;
   	padding: 0 30px;
+  	white-space: nowrap;
 	}
 	#header-banner{
 		float: left;
@@ -132,7 +135,10 @@
 	#searchBtn1{
 		display:none;
 	}
-
+	a:important { text-decoration:none !important }
+  .nav-link:hover{
+  	color: #f74444;
+  }
 	@media (max-width: 930px) {
   #header-search {
   	display:none;
@@ -145,12 +151,13 @@
 </style>
 
 <script>
-$("#btn_login").click(function(){
-	$('#loginModal').modal('show');
- });
-$("#btn_join").click(function(){
-	$('#joinModal').modal('show');
- });
+	$("#btn_login").click(function(){
+		$('#loginModal').modal('show');
+	 });
+	$("#btn_join").click(function(){
+		$('#joinModal').modal('show');
+	 });
+
 </script>
 	<div class="text-center" style="position:static; height:60px;" >
 	<div id="header">

@@ -10,7 +10,7 @@
   <div class="collapse navbar-collapse" id="collapsibleNavbar">
     <ul class="navbar-nav">
       <li class="nav-item">
-        <a class="nav-link" href="${ctp}/MovieAPI2.st">랭킹</a>
+        <a class="nav-link" href="#">랭킹</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="#">상영/예정작</a>

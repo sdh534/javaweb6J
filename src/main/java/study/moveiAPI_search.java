@@ -16,7 +16,7 @@ import org.json.simple.parser.ParseException;
 import movie.MovieDAO;
 import movie.MovieVO;
 
-public class moveiAPI_study2 { 
+public class moveiAPI_search { 
 	public static void main(String[] args) throws IOException { 
 		MovieDAO dao = new MovieDAO();
 		long start = System.currentTimeMillis();
@@ -25,13 +25,14 @@ public class moveiAPI_study2 {
 		StringBuilder sb = new StringBuilder();
 		int pageCnt = 0;
 		String str = "";
-		for(int j=0; j<1; j++) { //총 17391건 
+		for(int j=0; j<10; j++) { 
 			StringBuilder urlBuilder = new StringBuilder("http://api.koreafilm.or.kr/openapi-data2/wisenut/search_api/search_json2.jsp?collection=kmdb_new2"); /*URL*/ 
 			urlBuilder.append("&" + "ServiceKey=W33FBFR1XCLECPF79NER"); /*Service Key*/ 
 			urlBuilder.append("&" + "use="+ URLEncoder.encode("극장용", "UTF-8")); /* 극장 상영 영화만*/ 
-			urlBuilder.append("&" + "releaseDts=19500101"); /* 1980년도 이후 영화만 */ 
 			urlBuilder.append("&" + "ratedYn="+ URLEncoder.encode("Y", "UTF-8")); /* 심의 통과된 영화만*/
-			
+			urlBuilder.append("&" + "startCount=" + pageCnt+(j*50)); /* 페이지 1부터 */ 
+			urlBuilder.append("&" + "listCount=50");
+			urlBuilder.append("&" + "releaseDts=19500101"); /* 1950년도 이후 영화만 */
 			URL url = new URL(urlBuilder.toString());
 	    conn = (HttpURLConnection) url.openConnection();
 	    conn.setRequestMethod("GET");
@@ -111,7 +112,7 @@ public class moveiAPI_study2 {
 					vo.setStory(plot.get("plotText").toString());
 					vo.setPoster(movie.get("posters").toString());
 					
-					dao.setMovieDB(vo);
+					if(dao.getMovieList("title",vo.getTitle())==null)	dao.setMovieDB(vo);
 				}
 				
 				sb.setLength(0);

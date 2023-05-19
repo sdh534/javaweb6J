@@ -33,6 +33,7 @@ public class MovieDAO {
 			pstmt.setString(8, vo.getStory());
 			pstmt.setString(9, vo.getPoster());
 			pstmt.executeUpdate();
+			System.out.println(vo.getTitle()+"입력완료");
 		} catch (SQLException e) {
 			System.out.println("SQL 에러 : " + e.getMessage());
 		} finally {
@@ -45,7 +46,6 @@ public class MovieDAO {
 		ArrayList<MovieVO> vos = new ArrayList<>();
 		try {
 			sql = "select * from movie where " + category1 + " = ? order by rYear desc";
-			System.out.println(sql);
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, keyword1);
 			rs = pstmt.executeQuery();
