@@ -17,10 +17,24 @@ create table member(
 );
 
 desc member;
+select * from movie;
+select * from movie where idx = 4829;
 
 drop table member;
 
 insert into member values (default, "admin", "1234", "", "admin1234@naver.com", "SF/로맨스", 0, "관리자", default, default, "잘부탁합니다.", default);
 
+
+select * from movie where title="라라랜드";
+select * from movie where title="바빌론";
+select * from movie where title="위플래쉬";
+select * from movie where title="시카고";
+select * from movie where title="사랑은 비를 타고";
+select * from movie where title="코코";
+select * from movie where title="타이타닉";
+select * from movie where title="위대한 쇼맨";
+select * from movie where title="이터널 선샤인";
+select * from movie where title="덩케르크";
+select * from movie where title="덩케르크";
 
 select * from member where mid="admin";

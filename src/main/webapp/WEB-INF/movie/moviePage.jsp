@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%	String sMid = session.getAttribute("sMid")==null ? "" : (String)session.getAttribute("sMid"); %>
 <c:set var="ctp" value="${pageContext.request.contextPath}"/>
 <!DOCTYPE html>
 <html>
@@ -195,32 +196,6 @@
 					★★★★★
 					<span id="star-rating-checked">★★★★★</span>
 			  <input type="range" id="star-rating-range" value="0" step="1" min="0" max="10" onclick="rWrite()"/>
-				  <script>
-	     	 	var width=0;
-		      document.querySelector("#star-rating-range").addEventListener("mousemove",function(event){
-		      		width =parseInt((event.offsetX+10)/20)*10;
-		         $("#star-rating-checked").css("width", width+"%");
-		      });
-		      $("#star-rating-range").on("click", function(){
-		    	  const Toast = Swal.mixin({
-		    		    toast: true,
-		    		    position: 'center',
-		    		    showConfirmButton: false,
-		    		    timer: 1350,
-		    		    timerProgressBar: true,
-		    		    didOpen: (toast) => {
-		    		        toast.addEventListener('mouseenter', Swal.stopTimer)
-		    		        toast.addEventListener('mouseleave', Swal.resumeTimer)
-		    		    }
-		    		})
-		    		Toast.fire({
-		    		    icon: 'success',
-		    		    title: '별점이 등록되었어요!'
-		    		})
-						$("#star-rating-checked").val(width);
-			 			$("#user-rating-result").html("★ " + width/20); //이값을 DB로 전송 - AJAX처리 
-					});
-				</script>
 				</div>
 			</div>
 			<div class="line-hr"></div>
@@ -255,5 +230,38 @@
 	</div>
 <p><br/></p>
 <jsp:include page="/include/footer.jsp"/>
+	  <script>
+	     	 	var width=0;
+	     	 	let RangeValue = $("#star-rating-checked").val();
+		      document.querySelector("#star-rating-range").addEventListener("mousemove",function(event){
+		      		width =parseInt((event.offsetX+10)/20)*10;
+		         $("#star-rating-checked").css("width", width+"%");
+		         
+		         $("#star-rating-range").on("click", function(){
+			    	  const Toast = Swal.mixin({
+			    		    toast: true,
+			    		    position: 'center',
+			    		    showConfirmButton: false,
+			    		    timer: 1350,
+			    		    timerProgressBar: true,
+			    		    didOpen: (toast) => {
+			    		        toast.addEventListener('mouseenter', Swal.stopTimer)
+			    		        toast.addEventListener('mouseleave', Swal.resumeTimer)
+			    		    }
+			    		})
+			    		Toast.fire({
+			    		    icon: 'success',
+			    		    title: '별점이 등록되었어요!'
+			    		})
+							$("#star-rating-checked").val(width);
+				 			$("#user-rating-result").html("★ " + width/20); //이값을 DB로 전송 - AJAX처리 
+				     	$("#star-rating-checked").css("width", width+"%");
+	
+						});
+		      });
+		      //DB연동하고 AJAX처리한 후에 다시 생각해보자!! 
+		         $("#star-rating-checked").css("width", "0");
+		    
+				</script>
 </body>
 </html>

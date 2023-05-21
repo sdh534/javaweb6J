@@ -2,31 +2,41 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <c:set var="ctp" value="${pageContext.request.contextPath}"/>
 <style>
- #modal-btn-login{
- 	background-color: #f74444;
+ #modal-btn-review{
+		color: #f74444;
+		border: 1px solid;
  }
   .modal{
   font-family: "GmarketSansMedium";
   }
   #review{
+  font-family: 'NEXON Lv1 Gothic OTF';
+  width:100%;
+  font-size:13pt;
+  font-weight: 500;
   height:500px;
   }
   #login-btn-join{
   border: none;
   background-color: white;
   }
-  
+  .modal-content{
+  	padding:20px;
+  	border-radius: 1rem;
+  }
   .spoiler-section{
   font-size: 12pt;
   }
+  
+  .far{
+  font-weight: 900 !important;
+  }
+  
 </style>
 
 <script>
 	'use strict';
-	function login_off(){
-		$('#loginModal').modal('hide');
-	}
-	function loginCheck(){
+	function reviewCheck(){
 		//여기 정규식 체크 (아이디, 비밀번호)
 		
 		let data = {
@@ -35,7 +45,7 @@
 		
 		$.ajax({
 			type: "post",
-			url: "${ctp}/MemberLoginOk.mem",
+			url: "${ctp}/",
 			data: data,
 			success: function(res){
 				if(res=="0") alert("아이디 정보가 존재하지 않습니다.");
@@ -61,19 +71,19 @@
       </div>
       <div class="modal-body">
         <div class="form-title text-left">
-          <h4 style="font-weight: 1000;">${vo.title}</h4>
+          <h4 style="font-weight: 1000; font-size:20pt;">${vo.title}</h4>
         </div>
         <div class="d-flex flex-column">
           <form name="review-form">
-            <div class="form-group">
-              <input type="text" class="form-control" id="review" placeholder="작품에 대한 감상을 자유롭게 작성해주세요.">
+            <div class="form-group" >
+              <textarea class="form-control" id="review" placeholder="작품에 대한 감상을 자유롭게 작성해주세요."></textarea>
             </div>
           </form>
       	</div>
     	</div>
 	    <div class="modal-footer d-flex justify-content-center">
-	      <div class="spoiler-section text-left">스포일러가 있다면? <i class="fal fa-eye-slash fa-xs"></i>
-	      <button data-toggle="modal" data-target="#joinModal" class="text-point text-right" id="login-btn-join" onclick="login_off()">회원가입</button>
+	      <div class="spoiler-section text-left">스포일러가 있다면? <i class="far fa-eye-slash"></i>
+	      <button data-toggle="modal" data-target="" class="btn text-point text-right" id="modal-btn-review" onclick="reviewCheck()">등록</button>
 	      </div>
 	    </div>
   	</div>

@@ -35,30 +35,30 @@ public class MovieList implements MovieInterface {
 		//main에 띄울 영화 목록 2
 		MovieVO vo = new MovieVO();
 		ArrayList<MovieVO> vos2 = new ArrayList<>();
-		vo = dao.getMovieList(1396);
-		vos2.add(vo);
-		vo = dao.getMovieList(4829);
-		vos2.add(vo);
-		vo = dao.getMovieList(4144);
-		vos2.add(vo);
-		vo = dao.getMovieList(14537);
-		vos2.add(vo);
-		vo = dao.getMovieList(13934);
-		vos2.add(vo);
-		vo = dao.getMovieList(14355);
-		vos2.add(vo);
-		vo = dao.getMovieList(1656);
-		vos2.add(vo);
-		vo = dao.getMovieList(6234);
-		vos2.add(vo);
-		vo = dao.getMovieList(14601);
-		vos2.add(vo);
-		vo = dao.getMovieList(14619);
-		vos2.add(vo);
+		vos = dao.getMovieList("title", "라라랜드");
+		vos2.addAll(vos);
+		vos = dao.getMovieList("title", "바빌론");
+		vos2.addAll(vos);
+		vos = dao.getMovieList("title", "시카고");
+		vos2.addAll(vos);
+		vos = dao.getMovieList("title", "사랑은 비를 타고");
+		vos2.addAll(vos);
+		vos = dao.getMovieList("title", "코코");
+		vos2.addAll(vos);
+		vos = dao.getMovieList("title", "타이타닉");
+		vos2.addAll(vos);
+		vos = dao.getMovieList("title", "이터널 선샤인");
+		vos2.addAll(vos);
+		vos = dao.getMovieList("title", "비긴 어게인");
+		vos2.addAll(vos);
+		vos = dao.getMovieList("title", "아가씨");
+		vos2.addAll(vos);
+		vos = dao.getMovieList("title", "가디언즈 오브 갤럭시");
+		vos2.addAll(vos);
 		
 		cnt=0;
 		for(MovieVO vo2 : vos2) {
-			if(vo2.getPoster().contains("|")) { //포스터가 여러개로 존재하면 그중 하나만 가져오기
+			if(vo2.getPoster().contains("|")&&vo2.getPoster()!=null) { //포스터가 여러개로 존재하면 그중 하나만 가져오기
 				String poster = vo2.getPoster();
 				poster = poster.substring(0, poster.indexOf("|"));
 				vo2.setPoster(poster);

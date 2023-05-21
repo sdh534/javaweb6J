@@ -13,6 +13,12 @@
   border: none;
   background-color: white;
   }
+  .swal2-title {
+  font-size:15pt;
+  }
+  .swal2-container{
+      left: -16px;
+  }
 </style>
 
 <script>
@@ -22,28 +28,43 @@
 	}
 	function loginCheck(){
 		//여기 정규식 체크 (아이디, 비밀번호)
-		
+	
 		let data = {
 				mid: $("#mid").val().trim(),
-				pwd: $("#pwd").val().trim(),
+				pwd: $("#pwd").val().trim()
 		}
-		
 		$.ajax({
 			type: "post",
 			url: "${ctp}/MemberLoginOk.mem",
 			data: data,
 			success: function(res){
 				if(res=="0") alert("아이디 정보가 존재하지 않습니다.");
-				else if(res=="1") alert("비밀번호가 일치하지 않습니다.");
+				else if(res=="1") {
+					Swal.fire({
+							width:500,
+						  position: 'center',
+						  icon: 'error',
+						  title: '비밀번호가 옳지 않습니다.',
+						  showConfirmButton: false,
+						  timer: 1500
+						})
+				}
 				else{
-					alert("로그인 성공!");
+					Swal.fire({
+						width:500,
+					  position: 'center',
+					  icon: 'success',
+					  title: '로그인 성공!',
+					  showConfirmButton: false,
+					  timer: 1500
+					})
 					location.reload();
 				}
 			},
 			error: function(){
 				alert("전송 실패!");
 			}
-		});
+		}); 
 	}
 </script>
 
@@ -62,10 +83,10 @@
         <div class="d-flex flex-column text-center">
           <form name="login-form">
             <div class="form-group">
-              <input type="mid" class="form-control" id="mid" placeholder="아이디">
+              <input type="text" class="form-control" name="mid" id="mid" placeholder="아이디">
             </div>
             <div class="form-group">
-              <input type="password" class="form-control" id="pwd" placeholder="비밀번호">
+              <input type="password" class="form-control" name="pwd" id="pwd" placeholder="비밀번호">
             </div>
             <button type="button" id="modal-btn-login" class="btn btn-info btn-block btn-round" onclick="loginCheck()">Login</button>
           </form>

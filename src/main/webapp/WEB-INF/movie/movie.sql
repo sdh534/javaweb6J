@@ -13,9 +13,8 @@ create table movie(
 	rating 		double default 0,								/* 별점(사이트내) */
 	primary key(idx) 
 );
-
+select * from movie where idx = 4829;
 
 drop table movie;
 
-select * from movie where title="덩케르크";
 select * from movie where director="크리스토퍼 놀란" order by rYear desc;

@@ -20,6 +20,8 @@ public class MemberLoginOkCommand implements MemberInterface {
 		String res = "";
 		MemberDAO dao = new MemberDAO();
 		
+		System.out.println("mid: " + mid);
+		System.out.println("pwd: " + pwd);
 		MemberVO vo = dao.getMemberMidCheck(mid); //아이디 검색! 중복값이 있을 경우 NULL이 아닌 값 반환
 		if(vo.getMid()==null) {
 			res="0"; //가입된 아이디가 존재하지 않음

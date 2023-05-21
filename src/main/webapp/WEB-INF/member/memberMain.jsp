@@ -129,6 +129,7 @@
 </head>
 <body>
 <jsp:include page="/include/header.jsp"/>
+<jsp:include page="/include/loginCheck.jsp"/>
 <div class="container">
 		<!--
 Inspired by: https://dribbble.com/shots/1166639-Movie-Ticket/attachments/152161

@@ -103,7 +103,6 @@
 
 <body>
 	<jsp:include page="/include/header.jsp"/>
-	
 	<div class="full-screen" style="margin:10px 70px 0 70px">
 	
 			<!-- 처음 Carousel -->
