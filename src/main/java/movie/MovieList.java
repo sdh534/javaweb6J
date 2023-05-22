@@ -28,7 +28,6 @@ public class MovieList implements MovieInterface {
 			}
 			cnt++;
 		}
-		System.out.println(vos);
 		request.setAttribute("main1_vos", vos);
 		
 		

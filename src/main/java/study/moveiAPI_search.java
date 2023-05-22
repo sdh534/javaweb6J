@@ -30,8 +30,8 @@ public class moveiAPI_search {
 			urlBuilder.append("&" + "ServiceKey=W33FBFR1XCLECPF79NER"); /*Service Key*/ 
 			urlBuilder.append("&" + "listCount=10");  
 			urlBuilder.append("&" + "startCount=" + pageCnt+(j*10)); /* 페이지 1부터 */ 
-			urlBuilder.append("&" + "title=" + URLEncoder.encode("사랑은 비를 타고", "UTF-8")); /* 페이지 1부터 */ 
-
+			urlBuilder.append("&" + "title="+ URLEncoder.encode("가디언즈 오브 갤럭시", "UTF-8")); /* 심의 통과된 영화만*/
+			
 			URL url = new URL(urlBuilder.toString());
 	    conn = (HttpURLConnection) url.openConnection();
 	    conn.setRequestMethod("GET");
@@ -99,8 +99,7 @@ public class moveiAPI_search {
 // 					+ plot.get("plotText") + " | "  +actors.toString() + " | " + movie.get("keywords").toString().replace(",", "/")
 // 					+ "<br/><br/>";
 					
-					
-					
+				
 					vo.setTitle(movie.get("title").toString().trim().replace("!HS ","").replace(" !HE", ""));
 					vo.setrYear(Integer.parseInt(movie.get("prodYear").toString()));
 					vo.setCountry(movie.get("nation").toString().trim());
@@ -110,8 +109,10 @@ public class moveiAPI_search {
 					vo.setKeyword(movie.get("keywords").toString().replace(",", "/"));
 					vo.setStory(plot.get("plotText").toString());
 					vo.setPoster(movie.get("posters").toString());
+					vo.setPoster(movie.get("posters").toString());
 					
-					if(dao.getMovieList("title",vo.getTitle())==null)	dao.setMovieDB(vo);
+					dao.setMovieDB(vo);
+					System.out.println(movie.get("title"));
 				}
 				
 				sb.setLength(0);

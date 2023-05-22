@@ -132,23 +132,42 @@
 		margin-bottom:5px;
 	}
 
-	#star-rating-range{
+	#starRatingValue, #movie-star-rating-checked{
 	 	width: 100%;
-		height: 50%;
+		height: 100%;
     position: absolute;
     cursor: pointer;
     top: 10px;
     opacity: 0;
     left: 0;
 	}
-
-	#star-rating-empty {
+	#movie-star-rating-checked{
+    top: 0;
+    opacity:100;
+    cursor: auto;
+	}
+	#star-rating-empty, #movie-star-rating {
 		position: relative;
 		color:#ccc;
 		display:inline-block;
 		font-size:32pt;
 	}
+	
+	#movie-star-rating {
+		font-size:16pt;
+	}
+	
 	#star-rating-empty > span {
+		position: absolute;
+		color: orange;
+		width: 0;
+		top:0;
+		left: 0;
+		overflow:hidden;
+		pointer-events: none;
+	}
+	
+	#movie-star-rating-checked {
 		position: absolute;
 		color: orange;
 		width: 0;
@@ -162,14 +181,67 @@
 	/*미디어 쿼리*/
 	
 	</style>
-	<script>
-		'use strict';
-	
-	</script>
-
+<script>
+	'use strict';
+	$(document).ready(function(){
+		
+    $('#reviewModal').on('show.bs.modal', function (event) {
+          var movieIdx = ${vo.idx};
+      })
+		
+	});
+  $("#movie-star-rating-checked").css("width", ${vo.rating}+"%");
+  
+	function rCheck(){
+		let star = $("#starRatingValue").val();
+		
+		let query = {
+			movieIdx : ${vo.idx},
+			mid : "${sMid}",
+			nickName : "${sNickName}",
+			star : star
+		}
+		//이곳에 AJAX를 하나 더 추가 / DB에 저장된 값과 동일한 값을 클릭하면 별점이 삭제되도록, 단 코멘트가 있을 경우 삭제해서는 안됨 
+		
+		$.ajax({
+			type: "post",
+			url: "${ctp}/ReviewStarOk.re",
+			data: query,
+			success: function(res){
+				if(res=="0") {
+					Swal.fire({
+						width:500,
+					  position: 'center',
+					  icon: 'error',
+					  title: '별점 등록에 실패했습니다. 다시 시도해주세요',
+					  showConfirmButton: false,
+					  timer: 1500
+					})
+				}
+				else if(res=="1") {
+					Swal.fire({
+						width:500,
+					  position: 'center',
+					  icon: 'success',
+					  title: '별점이 성공적으로 등록되었습니다.',
+					  showConfirmButton: false,
+					  timer: 1500
+					})
+					setTimeout(function(){location.reload();},1500);
+				}
+			},
+		error: function(){
+			alert("전송오류");
+		}
+		});
+		
+}
+		
+</script>
 </head>
 <body id="movie-main">
 <jsp:include page="/include/header.jsp"/>
+<jsp:include page="/WEB-INF/review/movieReview.jsp"/>
 	<div class="detail-trailer"></div>
 	<div class="detail-top-bottom">
 	<div class="detail-top">
@@ -180,31 +252,41 @@
 				<div class="detail-content">${vo.rYear}・${vo.genre}・${vo.country}</div>
 				<div class="rating"> 
 					<div id="rating-result">별점</div>
-					<span class="fa fa-xl fa-star checked"></span>
-					<span class="fa fa-xl fa-star checked"></span>
-					<span class="fa fa-xl fa-star checked"></span>
-					<span class="fa fa-xl fa-star"></span>
-					<span class="fa fa-xl fa-star"></span>
+					<div id="movie-star-rating">
+						★★★★★
+						<span id="movie-star-rating-checked">★★★★★</span>
+					</div>
+						&nbsp; &nbsp; <font size="4pt">${vo.rating}점</font>
+						<script>$("#movie-star-rating-checked").css("width", ${vo.rating*20}+"%");</script>
 				</div>
 			</div>
 		<div class="line"></div>
 		</div>
 		<div class="user-rating">	 <!-- 이부분은...! 전송을 해야 하는 부분... AJAX 처리! -->
-			<div id="user-rating-result">평가하기</div>
-			<div id="star-rating">
-				<div id="star-rating-empty">
-					★★★★★
-					<span id="star-rating-checked">★★★★★</span>
-			  <input type="range" id="star-rating-range" value="0" step="1" min="0" max="10" onclick="rWrite()"/>
-				</div>
+			<div id="user-rating-result">
+			<c:if test="${memberRVo.rating ==null }">평가하기</c:if>
+			<c:if test="${memberRVo.rating !=null }">★ ${memberRVo.rating}</c:if>
 			</div>
+			<form name="starRating">
+				<div id="star-rating">
+					<div id="star-rating-empty">
+						★★★★★
+						<span id="star-rating-checked">★★★★★</span>
+						<c:if test="${memberRVo.rating ==null }">
+				  		<input type="range" name="starRatingValue" id="starRatingValue" value="0" step="1" min="0" max="10" onclick="rCheck()"/>
+				  	</c:if>
+						<c:if test="${memberRVo.rating !=null }">
+				  		<input type="range" name="starRatingValue" id="starRatingValue" value="${memberRVo.rating}" step="1" min="0" max="10" onclick="rCheck()"/>
+				  	</c:if>
+					</div>
+				</div>
+			</form>
 			<div class="line-hr"></div>
-			<div class="detail-title ">
+			<div class="detail-title">
 				<font style="font-size:17pt;">
 				<button id="btn_review" data-toggle="modal" data-target="#reviewModal" class="btn" style="font-size:20pt;">
 					<i class="fa-solid fa-pen fa-2xs"></i>&nbsp;&nbsp;코멘트				
 				</button>
-				<jsp:include page="/WEB-INF/movie/movieReview.jsp"/>
 				</font>
 			</div>
 		</div>
@@ -214,54 +296,44 @@
 			<div class="detail-movie-content">
 				<div class="detail-title" style="font-size:20pt;">기본 정보</div>
 				<div class="detail-bottom-text">
-				(영제명)<br/>
-				(상영 시간) ・ (관람제한)<br/>
-				${vo.rYear} ・ ${vo.country}	<br/>
-				<br/>
-				${vo.story}	
-				<br/><br/>
-				<hr/>
-				<div class="detail-title" style="font-size:20pt;">출연 / 제작</div>
-				<!-- 여기 테이블 넣으면 조을거가튼뎅... -->
+					${vo.runtime}분 | ${vo.rYear}년 ・ ${vo.country}	<br/>
+					<br/>
+					${vo.story}	
+					<br/><br/>
+					<hr/>
+					<div class="detail-title" style="font-size:20pt;">출연 / 제작</div>
+					<!-- 여기 테이블 넣으면 조을거가튼뎅... -->
+					<br/><br/>
+					<hr/>
+					<div class="detail-title" style="font-size:20pt;">코멘트</div>
+					<jsp:include page="/WEB-INF/review/movieReview.jsp"/>
+					
+				</div>
 				</div>
 			</div>
 		</div>
 		</div>
-	</div>
 <p><br/></p>
 <jsp:include page="/include/footer.jsp"/>
-	  <script>
-	     	 	var width=0;
-	     	 	let RangeValue = $("#star-rating-checked").val();
-		      document.querySelector("#star-rating-range").addEventListener("mousemove",function(event){
-		      		width =parseInt((event.offsetX+10)/20)*10;
-		         $("#star-rating-checked").css("width", width+"%");
-		         
-		         $("#star-rating-range").on("click", function(){
-			    	  const Toast = Swal.mixin({
-			    		    toast: true,
-			    		    position: 'center',
-			    		    showConfirmButton: false,
-			    		    timer: 1350,
-			    		    timerProgressBar: true,
-			    		    didOpen: (toast) => {
-			    		        toast.addEventListener('mouseenter', Swal.stopTimer)
-			    		        toast.addEventListener('mouseleave', Swal.resumeTimer)
-			    		    }
-			    		})
-			    		Toast.fire({
-			    		    icon: 'success',
-			    		    title: '별점이 등록되었어요!'
-			    		})
-							$("#star-rating-checked").val(width);
-				 			$("#user-rating-result").html("★ " + width/20); //이값을 DB로 전송 - AJAX처리 
-				     	$("#star-rating-checked").css("width", width+"%");
-	
-						});
-		      });
-		      //DB연동하고 AJAX처리한 후에 다시 생각해보자!! 
-		         $("#star-rating-checked").css("width", "0");
-		    
-				</script>
+  <script>
+   	 	let width=0;
+   	 	let RangeValue = $("#star-rating-checked").val();
+  		width = ${memberRVo.rating*20};
+      $("#star-rating-checked").css("width", width+"%");
+      document.querySelector("#starRatingValue").addEventListener("mousemove",function(event){
+	      	width =parseInt((event.offsetX+10)/20)*10;
+	        $("#star-rating-checked").css("width", width+"%");
+				 		$("#user-rating-result").html("★ " + width/20); //이값을 DB로 전송 - AJAX처리 
+	         
+	        $("#starRatingValue").on("click", function(){
+						$("#star-rating-checked").val(width);
+				    $("#star-rating-checked").css("width", width+"%");
+				});
+      });
+      document.querySelector("#starRatingValue").addEventListener("mouseleave",function(event){
+          $("#star-rating-checked").css("width", ${memberRVo.rating*20}+"%");
+				 		$("#user-rating-result").html("★ " + ${memberRVo.rating}); //이값을 DB로 전송 - AJAX처리 
+      });
+	</script>
 </body>
 </html>

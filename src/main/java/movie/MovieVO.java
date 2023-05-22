@@ -12,7 +12,14 @@ public class MovieVO {
 	private String story;
 	private String poster;
 	private double rating;
+	private int runtime;
 	
+	public int getRuntime() {
+		return runtime;
+	}
+	public void setRuntime(int runtime) {
+		this.runtime = runtime;
+	}
 	public int getIdx() {
 		return idx;
 	}
@@ -83,7 +90,7 @@ public class MovieVO {
 	public String toString() {
 		return "MovieVO [idx=" + idx + ", title=" + title + ", rYear=" + rYear + ", country=" + country + ", genre=" + genre
 				+ ", director=" + director + ", actor=" + actor + ", keyword=" + keyword + ", story=" + story + ", poster="
-				+ poster + ", rating=" + rating + "]";
+				+ poster + ", rating=" + rating + ", runtime=" + runtime + "]";
 	}
 	
 	

@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.oreilly.servlet.MultipartRequest;
 
-public class MemberPhotoUpadteCommand implements MemberInterface {
+public class MemberPhotoUpdateCommand implements MemberInterface {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

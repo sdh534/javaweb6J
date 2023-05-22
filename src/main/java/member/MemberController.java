@@ -51,8 +51,8 @@ public class MemberController extends HttpServlet{
 			command.execute(request, response);
 			return;
 		}
-		else if(com.equals("/MemberPhotoUpadte")) {
-			command = new MemberPhotoUpadteCommand();
+		else if(com.equals("/MemberPhotoUpdate")) {
+			command = new MemberPhotoUpdateCommand();
 			command.execute(request, response);
 			return;
 		}

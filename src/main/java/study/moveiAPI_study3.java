@@ -1,8 +1,9 @@
-package movie;
-
+package study;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
@@ -12,9 +13,11 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
-public class MovieAPI {
+import movie.MovieDAO;
+import movie.MovieVO;
 
-	public static void main(String[] args) throws IOException {
+public class moveiAPI_study3 { 
+	public static void main(String[] args) throws IOException { 
 		MovieDAO dao = new MovieDAO();
 		long start = System.currentTimeMillis();
 		BufferedReader rd = null;
@@ -22,14 +25,13 @@ public class MovieAPI {
 		StringBuilder sb = new StringBuilder();
 		int pageCnt = 0;
 		String str = "";
-		for(int j=0; j<10; j++) { //총 17391건 
+		for(int j=0; j<2184; j++) { //총 17391건 
 			StringBuilder urlBuilder = new StringBuilder("http://api.koreafilm.or.kr/openapi-data2/wisenut/search_api/search_json2.jsp?collection=kmdb_new2"); /*URL*/ 
 			urlBuilder.append("&" + "ServiceKey=W33FBFR1XCLECPF79NER"); /*Service Key*/ 
-			urlBuilder.append("&" + "listCount=10");  
-			urlBuilder.append("&" + "releaseDts=19800101"); /* 1980년도 이후 영화만 */ 
 			urlBuilder.append("&" + "ratedYn="+ URLEncoder.encode("Y", "UTF-8")); /* 심의 통과된 영화만*/
+			urlBuilder.append("&" + "listCount=10");  
+			urlBuilder.append("&" + "releaseDts=19400101"); /* 1980년도 이후 영화만 */ 
 			urlBuilder.append("&" + "startCount=" + pageCnt+(j*10)); /* 페이지 1부터 */ 
-			urlBuilder.append("&" + "title=" + URLEncoder.encode("사랑은 비를 타고", "UTF-8")); /* 페이지 1부터 */ 
 			
 			URL url = new URL(urlBuilder.toString());
 	    conn = (HttpURLConnection) url.openConnection();
@@ -98,19 +100,20 @@ public class MovieAPI {
 // 					+ plot.get("plotText") + " | "  +actors.toString() + " | " + movie.get("keywords").toString().replace(",", "/")
 // 					+ "<br/><br/>";
 					
-					
+					System.out.println(movie.get("title")+" "+movie.get("runtime"));
 					
 					vo.setTitle(movie.get("title").toString().trim().replace("!HS ","").replace(" !HE", ""));
 					vo.setrYear(Integer.parseInt(movie.get("prodYear").toString()));
 					vo.setCountry(movie.get("nation").toString().trim());
-					vo.setGenre(movie.get("genre").toString().replace(",", "/").trim().replace("!HS ","").replace(" !HE", ""));
+					vo.setGenre(movie.get("genre").toString().replace(",", "/"));
 					vo.setDirector(director.get("directorNm").toString());
 					vo.setActor(actors);
 					vo.setKeyword(movie.get("keywords").toString().replace(",", "/"));
 					vo.setStory(plot.get("plotText").toString());
 					vo.setPoster(movie.get("posters").toString());
+					if(!movie.get("runtime").equals("")) vo.setRuntime(Integer.parseInt(movie.get("runtime").toString()));
 					
-					if(dao.getMovieList("director",vo.getDirector())==null)	dao.setMovieDB(vo);
+					dao.setMovieDB(vo);
 				}
 				
 				sb.setLength(0);
@@ -123,5 +126,6 @@ public class MovieAPI {
     long end = System.currentTimeMillis();
 //		System.out.println( "실행 시간 : " + ( end - start )/1000.0 +"초");
 
-		} 
+
+	}
 }

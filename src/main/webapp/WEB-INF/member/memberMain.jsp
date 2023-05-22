@@ -115,7 +115,7 @@
 	    let fName = uploadform.profile.value;
 
 			$.ajax({
-				url: '${ctp}/MemberPhotoUpadte.mem',
+				url: '${ctp}/MemberPhotoUpdate.mem',
 				type: 'POST',
 				data: fName,
 				contentType: false,
