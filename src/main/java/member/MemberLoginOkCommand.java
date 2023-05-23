@@ -46,6 +46,7 @@ public class MemberLoginOkCommand implements MemberInterface {
 			session.setAttribute("sMid", mid);
 			session.setAttribute("sNickName", vo.getNickName());
 			session.setAttribute("sLevel", vo.getM_level()+"");
+			session.setAttribute("sPhoto", vo.getPhoto());
 			res="2"; //로그인 성공 
 			response.getWriter().write(res);
 	}

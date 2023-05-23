@@ -54,7 +54,7 @@ public class MemberController extends HttpServlet{
 		else if(com.equals("/MemberPhotoUpdate")) {
 			command = new MemberPhotoUpdateCommand();
 			command.execute(request, response);
-			return;
+			viewPage += "/memberMain.jsp";
 		}
 		
 		RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);

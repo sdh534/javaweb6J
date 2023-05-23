@@ -7,6 +7,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import review.ReviewDAO;
+import review.ReviewVO;
+
 public class MemberMainCommand implements MemberInterface {
 
 	@Override

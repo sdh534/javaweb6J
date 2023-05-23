@@ -16,7 +16,10 @@
   border: none;
   background-color: white;
   }
-  
+  #modal-btn-join{
+  background-color: #f74444;
+ 	border: #f74444;
+  }
   .form_warn, .check_id, .check_email {
     margin-left: 5px;
     font-size: 8pt;
@@ -204,7 +207,7 @@
           <form name="joinForm">
             <div class="form-group mb-1">
             	<span class="join-text">아이디</span>
-              <input type="text" class="form-control" id="mid1" placeholder="아이디">
+              <input type="text" class="form-control" id="mid1" placeholder="아이디" autofocus>
               <span class="form_warn" id="warn_id">4~20자의 영문 소문자, 숫자와 특수기호(_)만 사용 가능합니다.</span>
               <span class="form_warn" id="check_id">중복된 아이디입니다.</span>
             </div>
@@ -229,7 +232,7 @@
               <input type="text" class="form-control" id="email" placeholder="이메일">
               <span class="form_warn" id="warn_email">이메일 주소를 다시 확인해주세요.</span>
             </div>
-            <button type="button" id="modal-btn-join" class="btn btn-info btn-block btn-round" onclick="joinCheck()">회원가입</button>
+            <button type="button" id="modal-btn-join" class="btn btn-info btn-block btn-round mt-3" onclick="joinCheck()">회원가입</button>
           </form>
           
           <div class="text-center text-muted delimiter">or use a social network</div>

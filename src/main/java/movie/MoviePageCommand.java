@@ -1,6 +1,7 @@
 package movie;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -37,7 +38,9 @@ public class MoviePageCommand implements MovieInterface {
 		
 		
 		//리뷰 테이블의 정보도 함께 가져와야 함(평점 띄워 줘야 하닊가...) 
-//		dao.getMovieReviewList
+		ArrayList<ReviewVO> rVos = rDao.getMovieReviewList(vo.getIdx());
+		System.out.println(rVos);
+		request.setAttribute("rVos", rVos);
 	}
 
 }

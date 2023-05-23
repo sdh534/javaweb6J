@@ -31,16 +31,22 @@
 		margin-left:10%;
 		margin-right:10%;
 	}
+	.detail-movie-top{
+		width:80%;
+		height:200px;
+		display: flex;
+		padding-top: 10px;
+	}
 	.detail-trailer{
 			position: relative;
 			width:100%;
-			height:270px;
-			background-color: blue;
+			height:540px;
+			background-color: black;
 		}
 	.detail-poster{
+		flex:none;
 		width:200px;
-		float:left;
-		margin-right:30px;
+		margin-right:40px;
 		margin-left:40px;
 		transform: translateY(-160px);
 	}
@@ -49,12 +55,17 @@
 		border: 4px solid white;
 		border-radius: 7px;
 	}
+	.detail-trailer > img{
+		width:100%;
+		height: 490px;
+		object-fit: cover;
+    filter: blur(30px);
+	}
 	.detail-text{
 		display:inline-block;
 		font-family: 'NEXON Lv1 Gothic OTF';
 		padding-top: 15px;
-		float:left;
-		margin-right: 40px;
+		margin-right: 30px;
 	}
 	
 	.detail-title {
@@ -70,7 +81,11 @@
 	.checked {
   color: orange;
 	}
-	
+	#btn-review{
+		border: 1px solid #ccc;
+    border-radius: 30px;
+    width: 100%;
+	}
 	.user-rating {
 		font-family: 'NEXON Lv1 Gothic OTF';
 		float:right;
@@ -96,20 +111,11 @@
 		float:left;
 	}
 	.line{
-		height: 160px;
+		height: 140px;
     width: 1px;
-    float: left;
     margin-top: 15px;
     background-color: #ccc;
     margin-right:40px;
-	}
-	.line-hr{
-		height: 1px;
-    width: 350px;
-    float: left;
-    margin-top: 15px;
-    background-color: #ccc;
-    margin-bottom:5px;
 	}
 	.detail-top-bottom{
 		display: flex;
@@ -146,14 +152,14 @@
     opacity:100;
     cursor: auto;
 	}
-	#star-rating-empty, #movie-star-rating {
+	#star-rating-empty, #movie-star-rating, #review-star-rating {
 		position: relative;
 		color:#ccc;
 		display:inline-block;
 		font-size:32pt;
 	}
 	
-	#movie-star-rating {
+	#movie-star-rating, #review-star-rating {
 		font-size:16pt;
 	}
 	
@@ -167,7 +173,7 @@
 		pointer-events: none;
 	}
 	
-	#movie-star-rating-checked {
+	#movie-star-rating-checked, #review-star-rating-checked {
 		position: absolute;
 		color: orange;
 		width: 0;
@@ -179,7 +185,32 @@
 	
 	
 	/*미디어 쿼리*/
-	
+	@media (max-width: 1100px) {
+ .user-rating{
+    width: 200px;
+   }
+}
+	@media (max-width: 960px) {
+	.detail-top{
+		height:370px;
+	}
+	.detail-movie-top{
+		position:relative;
+		flex-direction: column;
+    flex-wrap: wrap;
+    height:400px;
+	}
+ .user-rating{
+    width: 100%;
+    position: absolute;
+    top: 40%;
+    border-top: 1px solid #ccc;
+    padding-top: 15px;
+   }
+   .line{
+  	display: none;
+  }
+}
 	</style>
 <script>
 	'use strict';
@@ -242,7 +273,14 @@
 <body id="movie-main">
 <jsp:include page="/include/header.jsp"/>
 <jsp:include page="/WEB-INF/review/movieReview.jsp"/>
-	<div class="detail-trailer"></div>
+	<div class="detail-trailer">
+	<c:if test="${vo.trailerKey!=null}">
+		<iframe width="100%" height="540px" src="https://www.youtube-nocookie.com/embed/${vo.trailerKey}?rel=0&vq=hd720&autoplay=1&mute=1&start=15" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+	</c:if>
+	<c:if test="${vo.trailerKey==null}">
+		<img src="${vo.poster}" alt="${vo.title}">
+	</c:if>
+	</div>
 	<div class="detail-top-bottom">
 	<div class="detail-top">
 		<div class="detail-movie-top">
@@ -261,7 +299,6 @@
 				</div>
 			</div>
 		<div class="line"></div>
-		</div>
 		<div class="user-rating">	 <!-- 이부분은...! 전송을 해야 하는 부분... AJAX 처리! -->
 			<div id="user-rating-result">
 			<c:if test="${memberRVo.rating ==null }">평가하기</c:if>
@@ -281,15 +318,15 @@
 					</div>
 				</div>
 			</form>
-			<div class="line-hr"></div>
 			<div class="detail-title">
 				<font style="font-size:17pt;">
-				<button id="btn_review" data-toggle="modal" data-target="#reviewModal" class="btn" style="font-size:20pt;">
+				<button id="btn-review" data-toggle="modal" data-target="#reviewModal" class="btn" style="font-size:20pt;">
 					<i class="fa-solid fa-pen fa-2xs"></i>&nbsp;&nbsp;코멘트				
 				</button>
 				</font>
 			</div>
 		</div>
+	</div>
 	</div>
 	<div class="detail-bottom-container">
 		<div class="detail-bottom">
@@ -306,7 +343,7 @@
 					<br/><br/>
 					<hr/>
 					<div class="detail-title" style="font-size:20pt;">코멘트</div>
-					<jsp:include page="/WEB-INF/review/movieReview.jsp"/>
+					<jsp:include page="/WEB-INF/review/reviewList.jsp"/>
 					
 				</div>
 				</div>

@@ -6,7 +6,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import com.mysql.fabric.xmlrpc.base.Array;
+
 import conn.GetConn;
+import review.ReviewVO;
 
 public class MovieDAO {
 	GetConn getConn = GetConn.getInstance();
@@ -64,6 +67,7 @@ public class MovieDAO {
 				vo.setPoster(rs.getString("poster"));
 				vo.setRating(rs.getDouble("rating"));
 				vo.setRuntime(rs.getInt("runtime"));
+				vo.setTrailerKey(rs.getString("trailerKey"));
 				vos.add(vo);
 			}
 		}catch (SQLException e) {
@@ -96,6 +100,7 @@ public class MovieDAO {
 				vo.setPoster(rs.getString("poster"));
 				vo.setRating(rs.getDouble("rating"));
 				vo.setRuntime(rs.getInt("runtime"));
+				vo.setTrailerKey(rs.getString("trailerKey"));
 			}
 		}catch (SQLException e) {
 			System.out.println("SQL 에러 : " + e.getMessage());
@@ -120,6 +125,62 @@ public class MovieDAO {
 			getConn.pstmtClose();
 		}
 		
+	}
+
+	public ArrayList<MovieVO> getAllMovieList() {
+		ArrayList<MovieVO> vos = new ArrayList<>();
+		try {
+			sql = "select idx, title, rYear from movie";
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				vo = new MovieVO();
+				vo.setIdx(rs.getInt("idx"));
+				vo.setTitle(rs.getString("title"));
+				vo.setrYear(rs.getInt("rYear"));
+				vos.add(vo);
+			}
+		}catch (SQLException e) {
+			System.out.println("SQL 에러 : " + e.getMessage());
+		} finally {
+			getConn.rsClose();
+		}
+
+		return vos;
+	}
+
+	public void setMovieTrailer(MovieVO vo) {
+
+		try {
+			sql = "update movie set trailerKey = ? where idx=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, vo.getTrailerKey());
+			pstmt.setInt(2, vo.getIdx());
+			pstmt.executeUpdate();
+			System.out.println(vo.getTitle() + "완료");
+		} catch (SQLException e) {
+			System.out.println("SQL 오류 : " + e.getMessage());
+		} finally {
+			getConn.pstmtClose();
+		}		
+	}
+
+	public ArrayList<String> getMovieTitle() {
+		ArrayList<String> title = new ArrayList<>();
+		try {
+			sql = "select title from movie";
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				title.add(rs.getString("title"));
+			}
+		}catch (SQLException e) {
+			System.out.println("SQL 에러 : " + e.getMessage());
+		} finally {
+			getConn.rsClose();
+		}
+
+		return title;
 	}
 
 

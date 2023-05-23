@@ -6,7 +6,7 @@
 		pageContext.setAttribute("level", level);
 %>
 <c:set var="ctp" value="${pageContext.request.contextPath}"/>
-
+<jsp:include page="/include/bs4.jsp" />
 <style>
 	@font-face {
 	    font-family: 'TTTtangsbudaejjigaeB';
@@ -57,6 +57,7 @@
     background-color: #f2f2f2;;
 	}
 	#searchWord{
+		font-family: "GmarketSansMedium";
     width: 320px;
     height: 26px;
     font-size: 11pt;
@@ -102,14 +103,20 @@
 	}	
 	
 	#btn_mypage{
-	 	background-image: url("${ctp}/images/member/noimage.jpg");
-	 	background-size : contain;
 	 	border: none;
-	  width:30px;
-	  height:30px;
+	  width:40px;
+	  height:40px;
 	  border-radius: 100%;
+	  overflow: hidden;
 	}
-	
+	#btn_mypage > img{ 
+	  width: 100%;
+	  height: 100%;
+	  object-fit: cover;
+	}
+	#btn_mypage > button{ 
+	 padding : 0;
+	}
 	.profile_btn{
 		margin-right:25px;
 	}
@@ -139,6 +146,65 @@
   .nav-link:hover{
   	color: #f74444;
   }
+  /* 자동완성 */
+.ui-autocomplete {
+	font-family: "GmarketSansMedium";
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 1000;
+  display: none;
+  float: left;
+  min-width: 160px;
+  padding: 5px 0;
+  margin: 2px 0 0;
+  list-style: none;
+  font-size: 14px;
+  text-align: left;
+  background-color: #ffffff;
+  border: 1px solid #cccccc;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: 7px;
+  -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+  background-clip: padding-box;
+}
+
+.ui-autocomplete > li > div {
+  display: block;
+  padding: 3px 20px;
+  clear: both;
+  font-weight: normal;
+  line-height: 2;
+  color: #333333;
+  white-space: nowrap;
+  font-family: "GmarketSansMedium";
+}
+.ui-state-hover,
+.ui-state-active,
+.ui-state-focus {
+  border-radius: 7px;
+  cursor: pointer;
+}
+.ui-widget.ui-widget-content {
+    border: 1px solid #fe5f5f !important;
+}
+.ui-menu-item .ui-menu-item-wrapper.ui-state-active {
+    background: white !important;
+    color: #fe5f5f !important;
+    border: 1px solid #fe5f5f !important;
+} 
+.ui-helper-hidden-accessible {
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+}
+  /* ------------------------------------------- */
 	@media (max-width: 930px) {
   #header-search {
   	display:none;
@@ -149,15 +215,35 @@
   }
 }
 </style>
-
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script>
-	$("#btn_login").click(function(){
-		$('#loginModal').modal('show');
-	 });
-	$("#btn_join").click(function(){
-		$('#joinModal').modal('show');
-	 });
+	var str = "";
+	var arr;
+	if(str == ""){
+		str = "${searchTitles}";
+		arr = str.split(",");
+		console.log(arr);
+	}
+	$(function () {	//화면 로딩후 시작
+		$("#searchWord").autocomplete({  //오토 컴플릿트 시작
+			source: arr,	// 이곳에 리스트를 적는다! 
+			focus : function(event, ui) { // 방향키로 자동완성단어 선택 가능하게 만들어줌	
+				return false;
+			},
+			minLength: 1,// 최소 글자수
+			delay: 100,	//autocomplete 딜레이 시간(ms)
+			//disabled: true, //자동완성 기능 끄기
+		});
+		$("#btn_login").click(function(){
+			$('#loginModal').modal('show');
+		 });
+		$("#btn_join").click(function(){
+			$('#joinModal').modal('show');
+		 });
 
+			
+	});
 </script>
 	<div class="text-center" style="position:static; height:60px;" >
 	<div id="header">
@@ -178,12 +264,12 @@
 	  <div class="header-login">
 	  	<ul style="list-style:none; margin-bottom:0px">
 	  	<li>
-	  	<form name="searchForm">
+	  	<form name="searchForm" autocomplete="off">
 	  			<i class="fas fa-search" id="searchBtn1"></i>
 	  		<div id="header-search" >
 	  		<label>
 	  			<i class="fas fa-search" id="searchBtn2"></i>
-	  			<input type="text" name="searchWord" id="searchWord" placeholder="찾고자 하는 영화, 단어, 유저를 검색해보세요." />
+	  			<input type="text" name="searchWord" id="searchWord" placeholder="찾고자 하는 영화, 단어, 유저를 검색해보세요."/>
 	  		</label>
 	  		</div>
 	  	</form>
@@ -194,7 +280,13 @@
 	  	</c:if>
 	  	<c:if test="${level<=3}">
 	  		<div class="profile_btn" >
-  	  		<li><button id="btn_mypage" onclick="location.href='${ctp}/MemberMain.mem';"></button></li>
+  	  		<li>
+	  	  		<button onclick="location.href='${ctp}/MemberMain.mem';" style=" border:none; background-color:transparent;">
+	  	  			<div id="btn_mypage" >
+		  	  			<img src="${ctp}/images/member/${sPhoto}">
+		  	  		</div>
+	  	  		</button>
+  	  		</li>
   	  	</div>
 	  	</c:if>
 	  	</ul>

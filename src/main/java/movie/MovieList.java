@@ -7,10 +7,15 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.json.simple.JSONArray;
+import org.json.simple.parser.JSONParser;
+
 public class MovieList implements MovieInterface {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		long start = System.currentTimeMillis();
+		
 		MovieDAO dao = new MovieDAO();
 		
 		//main에 띄울 영화목록 1
@@ -34,26 +39,26 @@ public class MovieList implements MovieInterface {
 		//main에 띄울 영화 목록 2
 		MovieVO vo = new MovieVO();
 		ArrayList<MovieVO> vos2 = new ArrayList<>();
-		vos = dao.getMovieList("title", "라라랜드");
-		vos2.addAll(vos);
-		vos = dao.getMovieList("title", "바빌론");
-		vos2.addAll(vos);
-		vos = dao.getMovieList("title", "시카고");
-		vos2.addAll(vos);
-		vos = dao.getMovieList("title", "사랑은 비를 타고");
-		vos2.addAll(vos);
-		vos = dao.getMovieList("title", "코코");
-		vos2.addAll(vos);
-		vos = dao.getMovieList("title", "타이타닉");
-		vos2.addAll(vos);
-		vos = dao.getMovieList("title", "이터널 선샤인");
-		vos2.addAll(vos);
-		vos = dao.getMovieList("title", "비긴 어게인");
-		vos2.addAll(vos);
-		vos = dao.getMovieList("title", "아가씨");
-		vos2.addAll(vos);
-		vos = dao.getMovieList("title", "가디언즈 오브 갤럭시");
-		vos2.addAll(vos);
+		vo = dao.getMovieList(1758);
+		vos2.add(vo);
+		vo = dao.getMovieList(5889);
+		vos2.add(vo);
+		vo = dao.getMovieList(14447);
+		vos2.add(vo);
+		vo = dao.getMovieList(17913);
+		vos2.add(vo);
+		vo = dao.getMovieList(17926);
+		vos2.add(vo);
+		vo = dao.getMovieList(17223);
+		vos2.add(vo);
+		vo = dao.getMovieList(1803);
+		vos2.add(vo);
+		vo = dao.getMovieList(3977);
+		vos2.add(vo);
+		vo = dao.getMovieList(17964);
+		vos2.add(vo);
+		vo = dao.getMovieList(4013);
+		vos2.add(vo);
 		
 		cnt=0;
 		for(MovieVO vo2 : vos2) {
@@ -67,9 +72,16 @@ public class MovieList implements MovieInterface {
 		}
 		request.setAttribute("main2_vos", vos2);
 
+		
+		//자동검색을 위해 모든 값을 가져와서 배열에 뿌려줘야함 
+		ArrayList<String> searchTitle = dao.getMovieTitle();
+		String[] array = searchTitle.toArray(new String[searchTitle.size()]);
+		String searchTitles = String.join(",", array);
+		request.setAttribute("searchTitles", searchTitles);
 		//main에 띄울 영화 목록 3
-		
-		
+		long end = System.currentTimeMillis();
+		System.out.println( "실행 시간 : " + ( end - start )/1000.0 +"초");
+
 	}
 
 }

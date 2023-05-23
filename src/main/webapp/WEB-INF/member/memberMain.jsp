@@ -15,13 +15,12 @@
 	    font-weight: 700;
 	    font-style: normal;
 	}
-	.mypage-poster{ 
+	.mypage-poster > img{ 
 	text-align: center; 
-	width:auto;
-	height:300px;
-	background-size:cover;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 	background-position:center;
-	background-image: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/25240/only-god-forgives.jpg");
 	}
 	
 	.ticket {
@@ -104,26 +103,56 @@
 		top:15px;
 		right:-5px;
 	}
+	.mypage-poster{
+		height: 300px;
+	}
 	.profile-photo{
 		position:relative;
+		width: 660px;
 	}
 	</style>
 	<script>
 		'use strict';
-		
 		function uploadImage(){
-	    let fName = uploadform.profile.value;
-
-			$.ajax({
-				url: '${ctp}/MemberPhotoUpdate.mem',
-				type: 'POST',
-				data: fName,
-				contentType: false,
-				processData: false,
-				success: function(){
-					alert:("프로필 사진이 업데이트 되었습니다.;")
-				}
+	    let profile = profileForm.profile.value;
+	    let ext = profile.substring(profile.lastIndexOf(".")+1).toUpperCase();
+			let maxSize = 1024 * 1024 * 10; // 업로드 가능파일은 5MB
+			
+			var form = $("#profileForm")[0];
+			var formData = new FormData(form);
+			console.log(formData);
+			formData.append("profile", $("#profile")[0].files[0]);
+			
+			let fileSize = document.getElementById("profile").files[0].size;
+			if(fileSize > maxSize) {
+				alert("업로드할 파일의 최대용량은 5MByte 입니다.")
+			}
+			$(document).ready(function(){
+				$.ajax({
+					url: "${ctp}/MemberPhotoUpdate.mem",
+					enctype: 'multipart/form-data',
+			    contentType:  false,
+			    processData: false,
+			    type: 'POST', 
+			    data: formData,
+			    success: function() {
+					Swal.fire({
+						width:500,
+					  position: 'center',
+					  icon: 'success',
+					  title: '업로드 성공!',
+					  showConfirmButton: false,
+					  timer: 1500
+					})
+					setTimeout(function(){location.reload();},1500);
+			    },
+					error: function(){
+						console.log('error');
+					}
+				}); 
+					//profileForm.submit();
 			});
+			
 		}
 	</script>
 </head>
@@ -139,14 +168,13 @@ Inspired by: https://dribbble.com/shots/1166639-Movie-Ticket/attachments/152161
 		<p class="cinema">MY PAGE</p>
 		<p class="movie-title">${vo.nickName}</p>
 	</div>
-	<div class="profile-photo" >
-		<form name="uploadform" enctype="multipart/form-data">
+		<form name="profileForm" method="post" action="${ctp}/MemberPhotoUpdate.mem" enctype="multipart/form-data">
+		<div class="profile-photo" >
 			<input type="file" name="profile" id="profile" accept=".png, .jpg, .gif, .jpeg" style="display:none" onchange="uploadImage()"/>
-			<div class="upload-btn"  onclick="onclick=document.uploadform.profile.click();"><i class="fa-solid fa-gear fa-2xl" style="color: #000000;"></i></div>
-			<div class="mypage-poster">
-			</div>
+			<div class="upload-btn"  onclick="onclick=document.profileForm.profile.click();"><i class="fa-solid fa-gear fa-2xl" style="color: #000000;"></i></div>
+			<div class="mypage-poster"> <img src="${ctp}/images/member/${vo.photo}"></div>
+		</div>
 		</form>
-	</div>
 	<div class="info">
 	<table>
 		<tr>

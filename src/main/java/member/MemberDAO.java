@@ -103,17 +103,19 @@ public class MemberDAO {
 	}
 
 
-//	public void setMemberPhotoUpdate() {
-//		try {
-//			sql = "update member set todayCnt = 0 where mid = ?";
-//			pstmt = conn.prepareStatement(sql);
-//			pstmt.setString(1, mid);
-//			pstmt.executeUpdate();
-//		} catch (SQLException e) {
-//			System.out.println("SQL 에러 : " + e.getMessage());
-//		} finally {
-//			getConn.pstmtClose();
-//		}
-//	}
+
+	public void setMemberPhotoUpdate(String filesystemName, String mid) {
+		try {
+			sql = "update member set photo = ? where mid = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, filesystemName);
+			pstmt.setString(2, mid);
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println("SQL 에러 : " + e.getMessage());
+		} finally {
+			getConn.pstmtClose();
+		}
+	}
 
 }

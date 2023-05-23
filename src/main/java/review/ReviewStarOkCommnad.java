@@ -33,13 +33,13 @@ public class ReviewStarOkCommnad implements ReviewInterface {
 		int res = 0;
 		if(checkVo.getMid() == null) {
 			res = dao.setReviewStarRating(vo);
-			//별점이 등록되면 movie 테이블의 평점또한 수정되어야 함-> 리뷰테이블에서 해당 영화를 가져와서 별점의 합산을 구한다
 		}
 		//있다면 별점을 수정 
 		else {
 			res = dao.setUpdateReviewStarRating(vo);
 		}
-		double movieRating = dao.getMovieReview(movieIdx);
+		//별점이 등록되면 movie 테이블의 평점또한 수정되어야 함-> 리뷰테이블에서 해당 영화를 가져와서 별점의 합산을 구한다
+		double movieRating = Math.round(dao.getMovieReview(movieIdx));
 		MovieDAO mDao = new MovieDAO();
 		mDao.setMovieRatingUpdate(movieIdx, movieRating);
 		response.getWriter().write(res+"");

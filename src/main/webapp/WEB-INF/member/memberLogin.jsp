@@ -4,6 +4,7 @@
 <style>
  #modal-btn-login{
  	background-color: #f74444;
+ 	border: #f74444;
  }
   .modal{
   font-family: "GmarketSansMedium";
@@ -17,7 +18,6 @@
   font-size:15pt;
   }
   .swal2-container{
-      left: -16px;
   }
 </style>
 
@@ -58,7 +58,8 @@
 					  showConfirmButton: false,
 					  timer: 1500
 					})
-					location.reload();
+					setTimeout(function(){location.reload();},1500);
+					$('#loginModal').modal('hide');
 				}
 			},
 			error: function(){
@@ -83,7 +84,7 @@
         <div class="d-flex flex-column text-center">
           <form name="login-form">
             <div class="form-group">
-              <input type="text" class="form-control" name="mid" id="mid" placeholder="아이디">
+              <input type="text" class="form-control" name="mid" id="mid" placeholder="아이디" autofocus>
             </div>
             <div class="form-group">
               <input type="password" class="form-control" name="pwd" id="pwd" placeholder="비밀번호">

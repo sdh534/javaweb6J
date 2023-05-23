@@ -17,6 +17,7 @@ create table movie(
 select * from movie where director='크리스토퍼 놀란';
 select * from movie where title like '%가디언즈 오브 갤럭시%';
 
+select title, director, keyword, rYear from movie where title like '%가%' or director like '%가%' order by rYear desc limit 5;
 drop table movie;
 
 select * from movie;
@@ -40,7 +41,31 @@ create table review(
 
 drop table review;
 
-select movie.idx, movie.title, review.mid, review.context, review.rating, review.wDate from movie inner join review on movie.idx = review.movieIdx;
+select * from (select review.* from movie cross join review on movie.idx = review.movieIdx) as temp where movieIdx=1792 and temp.context != "";
 
-select * from movie where idx = 1067;
+select title from movie;
+select * from movie where title = '앵무새 몸으로 울었다';
+select * from movie where title = '랑종';
+select * from movie where trailerKey is not null;
 select avg(rating) as rating from review where movieIdx = 1067;
+
+alter table movie add column trailerKey varchar(100);
+alter table movie drop column trailerKey;
+
+select idx, title from movie;
+select * from member cross join review on review.mid = member.mid where context is not null and movieIdx=1067;
+select * from	(select member.* from movie cross join review
+						on review.movieIdx = movie.idx) as temp where movieIdx=1067 and temp.context != '';
+-- 1. 멤버랑 무비테이블을 조인 해주고(movieIdx로 + 리뷰를 가져오면 ? 됨?) 
+select * from review;
+select review.*, member.photo from member cross join review on review.mid = member.mid where review.mid='sdh534' and movieIdx=1067
+select review.*, member.photo from member cross join review on review.mid=member.mid where review.mid='sdh534' and movieIdx=1067
+
+ "select * from (select review.* from movie cross join review on review.movieIdx = movie.idx) as temp where movieIdx=? and temp.context != ''
+ select review.* from review cross join movie on review.movieIdx = movie.idx where movieIdx=1067 and context != ''
+select review.* from member cross join review on review.mid = member.mid where movieIdx=1067;
+select * from (select movieIdx from movie cross join review on review.movieIdx = movie.idx)as a
+select * from (select review.idx as rIdx from movie inner join review on review.movieIdx = movie.idx)as a;
+
+
+select title, director, rYear from movie where title like '%가디%' or director like '%가디%' order by title asc limit 5;

@@ -11,6 +11,7 @@ public class ReviewVO {
 	private int thumb;
 	private int spoiler;
 	private int reviewDel;
+	private String photo;
 	
 	public int getIdx() {
 		return idx;
@@ -72,11 +73,18 @@ public class ReviewVO {
 	public void setReviewDel(int reviewDel) {
 		this.reviewDel = reviewDel;
 	}
+	public String getPhoto() {
+		return photo;
+	}
+	public void setPhoto(String photo) {
+		this.photo = photo;
+	}
 	@Override
 	public String toString() {
 		return "ReviewVO [idx=" + idx + ", movieIdx=" + movieIdx + ", mid=" + mid + ", nickName=" + nickName + ", context="
 				+ context + ", rating=" + rating + ", wDate=" + wDate + ", thumb=" + thumb + ", spoiler=" + spoiler
-				+ ", reviewDel=" + reviewDel + "]";
+				+ ", reviewDel=" + reviewDel + ", photo=" + photo + "]";
 	}
+	
 	
 }

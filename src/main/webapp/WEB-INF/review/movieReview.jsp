@@ -196,7 +196,12 @@
           </div>
           <div class="d-flex flex-column">
             <div class="form-group">
-              <textarea class="form-control" id="review" placeholder="작품에 대한 감상을 자유롭게 작성해주세요." ></textarea>
+            	<c:if test="${memberRVo.context != null}">
+              	<textarea class="form-control" id="review">${memberRVo.context}</textarea>
+            	</c:if>
+            	<c:if test="${memberRVo.context ==null}">
+              	<textarea class="form-control" id="review" placeholder="작품에 대한 감상을 자유롭게 작성해주세요."></textarea>
+            	</c:if>
             </div>
           </div>
         </div>
@@ -204,7 +209,10 @@
           <div class="spoiler-section text-left" data-toggle="tooltip" data-html="true" data-placement="top" title="스포일러가 있는 <br/> 코멘트를 가려보세요!">
             <div>스포일러가 있다면? <input type="checkbox" name="toggleBtn" id="toggleBtn" /><label for="toggleBtn" id="toggle"></label></div>
           </div>
-          <button type="button" id="modal-btn-review" class="btn btn-block btn-round" onclick="reviewCheck()">등록</button>
+          <button type="button" id="modal-btn-review" class="btn btn-block btn-round" onclick="reviewCheck()">
+          	<c:if test="${memberRVo.context==null}">등록</c:if>
+          	<c:if test="${memberRVo.context!=null}">수정</c:if>
+          </button>
         </div>
       </div>
     </div>

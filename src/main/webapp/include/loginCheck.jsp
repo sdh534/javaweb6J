@@ -4,12 +4,6 @@
 	if(memberMid.equals("")){
 %>
 <script>
-	Swal.fire({
-		  icon: 'error',
-		  title: 'Oops...',
-		  text: '잘못된 접근입니다.',
-		  footer: '<a href="">로그인</a>'
-		})
-	location.href="${pageContext.request.contextPath}/";
+		location.href="${pageContext.request.contextPath}/Main";
 </script>
 <%}%>

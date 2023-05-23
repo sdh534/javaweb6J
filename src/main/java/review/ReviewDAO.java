@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import conn.GetConn;
 
@@ -44,7 +45,8 @@ public class ReviewDAO {
 		vo = new ReviewVO();
 		
 		try {
-			sql = "select * from review where mid = ? and movieIdx = ?";
+			sql = "select review.*, member.photo from member cross join review on review.mid=member.mid"
+					+ " where review.mid = ? and movieIdx = ?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, sMid);
 			pstmt.setInt(2, idx);
@@ -61,6 +63,7 @@ public class ReviewDAO {
 				vo.setThumb(rs.getInt("thumb"));
 				vo.setSpoiler(rs.getInt("spoiler"));
 				vo.setReviewDel(rs.getInt("reviewDel"));
+				vo.setPhoto(rs.getString("photo"));
 			}
 		} catch (SQLException e) {
 			System.out.println("SQL 오류 : " + e.getMessage());
@@ -135,6 +138,37 @@ public class ReviewDAO {
 		
 		return res;
 	}
+
+
+		public ArrayList<ReviewVO> getMovieReviewList(int idx) {
+			ArrayList<ReviewVO> vos = new ArrayList<>();
+			try {
+				sql = "select review.*, member.photo from member cross join review on review.mid = member.mid where movieIdx=?;";
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1, idx);
+				rs = pstmt.executeQuery();
+				while(rs.next()) {
+					vo = new ReviewVO();
+					vo.setIdx(rs.getInt("idx"));
+					vo.setMovieIdx(rs.getInt("movieIdx"));
+					vo.setMid(rs.getString("mid"));
+					vo.setNickName(rs.getString("nickName"));
+					vo.setContext(rs.getString("context"));
+					vo.setRating(rs.getDouble("rating"));
+					vo.setwDate(rs.getString("wDate"));
+					vo.setThumb(rs.getInt("thumb"));
+					vo.setSpoiler(rs.getInt("spoiler"));
+					vo.setReviewDel(rs.getInt("reviewDel"));
+					vo.setPhoto(rs.getString("photo"));
+					vos.add(vo);
+				}
+			}catch (SQLException e) {
+				System.out.println("SQL 에러 : " + e.getMessage());
+			} finally {
+				getConn.rsClose();
+			}
+			return vos;
+		}
 	
 	
 	

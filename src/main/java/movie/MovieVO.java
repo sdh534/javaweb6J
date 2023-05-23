@@ -13,7 +13,14 @@ public class MovieVO {
 	private String poster;
 	private double rating;
 	private int runtime;
+	private String trailerKey;
 	
+	public String getTrailerKey() {
+		return trailerKey;
+	}
+	public void setTrailerKey(String trailerKey) {
+		this.trailerKey = trailerKey;
+	}
 	public int getRuntime() {
 		return runtime;
 	}
@@ -90,7 +97,7 @@ public class MovieVO {
 	public String toString() {
 		return "MovieVO [idx=" + idx + ", title=" + title + ", rYear=" + rYear + ", country=" + country + ", genre=" + genre
 				+ ", director=" + director + ", actor=" + actor + ", keyword=" + keyword + ", story=" + story + ", poster="
-				+ poster + ", rating=" + rating + ", runtime=" + runtime + "]";
+				+ poster + ", rating=" + rating + ", runtime=" + runtime + ", trailerKey=" + trailerKey + "]";
 	}
 	
 	

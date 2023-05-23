@@ -27,11 +27,6 @@ public class MovieController extends HttpServlet{
 			command.execute(request, response);
 			viewPage += "/moviePage.jsp";
 		}
-		else if(com.equals("/MovieAutoSearch")) {
-			command = new MovieAutoSearch();
-			command.execute(request, response);
-			return;
-		}
 		RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
 		dispatcher.forward(request, response);
 	}
