@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.json.simple.JSONArray;
 import org.json.simple.parser.JSONParser;
@@ -73,11 +74,12 @@ public class MovieList implements MovieInterface {
 		request.setAttribute("main2_vos", vos2);
 
 		
+		HttpSession session = request.getSession();
 		//자동검색을 위해 모든 값을 가져와서 배열에 뿌려줘야함 
 		ArrayList<String> searchTitle = dao.getMovieTitle();
 		String[] array = searchTitle.toArray(new String[searchTitle.size()]);
 		String searchTitles = String.join(",", array);
-		request.setAttribute("searchTitles", searchTitles);
+		session.setAttribute("searchTitles", searchTitles);
 		//main에 띄울 영화 목록 3
 		long end = System.currentTimeMillis();
 		System.out.println( "실행 시간 : " + ( end - start )/1000.0 +"초");

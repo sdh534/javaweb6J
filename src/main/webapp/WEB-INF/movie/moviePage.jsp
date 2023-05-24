@@ -6,23 +6,20 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>씨네톡 | ${vo.title}</title>
 	<jsp:include page="/include/bs4.jsp" />
+	<title>씨네톡 | ${vo.title}</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link href="${ctp}/images/cinetalk.ico" rel="shortcut icon" type="image/x-icon">
 	
 	<style>
-	@font-face {
-    font-family: 'NEXON Lv1 Gothic OTF';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/NEXON Lv1 Gothic OTF.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
+	
+	body {
+		padding-right:0 !important;
 	}
 	#movie-main{
 		background-color: #eee;
 	}
 	.detail-top{
-		width:100%;
 		height: 200px;
 		background-color: white;
 		border-bottom: 1.5px solid #ddd;
@@ -69,6 +66,7 @@
 	}
 	
 	.detail-title {
+		margin-bottom: 15px;
 		font-family: 'NEXON Lv1 Gothic OTF';
 		font-weight: 1000;
 	}
@@ -76,7 +74,7 @@
 		color: #aaa;
 	}
 	.bigger {
-		font-size: 38px;
+		font-size: 1.8em;
 	}
 	.checked {
   color: orange;
@@ -185,12 +183,12 @@
 	
 	
 	/*미디어 쿼리*/
-	@media (max-width: 1100px) {
+	@media (max-width: 1150px) {
  .user-rating{
     width: 200px;
    }
 }
-	@media (max-width: 960px) {
+	@media (max-width: 1000px) {
 	.detail-top{
 		height:370px;
 	}
@@ -217,13 +215,23 @@
 	$(document).ready(function(){
 		
     $('#reviewModal').on('show.bs.modal', function (event) {
-          var movieIdx = ${vo.idx};
+    	if("${sMid}"==""){
+			$('#needLoginModal').modal('show');
+			return false;
+			}
+      var movieIdx = ${vo.idx};
       })
 		
+  	$("#movie-star-rating-checked").css("width", ${vo.rating*20}+"%");
 	});
-  $("#movie-star-rating-checked").css("width", ${vo.rating}+"%");
   
 	function rCheck(){
+		
+		if("${sMid}"==""){
+			$('#needLoginModal').modal('show');
+			return false;
+		}
+		
 		let star = $("#starRatingValue").val();
 		
 		let query = {
@@ -270,9 +278,10 @@
 		
 </script>
 </head>
-<body id="movie-main">
+<body id="movie-main" >
 <jsp:include page="/include/header.jsp"/>
 <jsp:include page="/WEB-INF/review/movieReview.jsp"/>
+<jsp:include page="/include/NeedLogin.jsp"/>
 	<div class="detail-trailer">
 	<c:if test="${vo.trailerKey!=null}">
 		<iframe width="100%" height="540px" src="https://www.youtube-nocookie.com/embed/${vo.trailerKey}?rel=0&vq=hd720&autoplay=1&mute=1&start=15" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
@@ -339,6 +348,7 @@
 					<br/><br/>
 					<hr/>
 					<div class="detail-title" style="font-size:20pt;">출연 / 제작</div>
+					<jsp:include page="/WEB-INF/movie/movieCast.jsp"/>
 					<!-- 여기 테이블 넣으면 조을거가튼뎅... -->
 					<br/><br/>
 					<hr/>

@@ -42,6 +42,7 @@ create table review(
 drop table review;
 
 select * from (select review.* from movie cross join review on movie.idx = review.movieIdx) as temp where movieIdx=1792 and temp.context != "";
+select * from (select movie.genre, review.mid from movie cross join review on movie.idx = review.movieIdx) as temp where mid='lalaland';
 
 select title from movie;
 select * from movie where title = '앵무새 몸으로 울었다';

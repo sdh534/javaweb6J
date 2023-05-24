@@ -12,12 +12,11 @@
   
   #login-btn-join{
   border: none;
+  color: #f74444;
   background-color: white;
   }
   .swal2-title {
   font-size:15pt;
-  }
-  .swal2-container{
   }
 </style>
 

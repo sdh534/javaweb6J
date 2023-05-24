@@ -56,6 +56,11 @@ public class MemberController extends HttpServlet{
 			command.execute(request, response);
 			viewPage += "/memberMain.jsp";
 		}
+		else if(com.equals("/MemberLogoutOk")) {
+			command = new MemberLogoutOkCommand();
+			command.execute(request, response);
+			return;
+		}
 		
 		RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
 		dispatcher.forward(request, response);

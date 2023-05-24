@@ -139,7 +139,7 @@ public class ReviewDAO {
 		return res;
 	}
 
-
+// 해당 영화의 모든 리뷰를 반환
 		public ArrayList<ReviewVO> getMovieReviewList(int idx) {
 			ArrayList<ReviewVO> vos = new ArrayList<>();
 			try {
@@ -160,6 +160,51 @@ public class ReviewDAO {
 					vo.setSpoiler(rs.getInt("spoiler"));
 					vo.setReviewDel(rs.getInt("reviewDel"));
 					vo.setPhoto(rs.getString("photo"));
+					vos.add(vo);
+				}
+			}catch (SQLException e) {
+				System.out.println("SQL 에러 : " + e.getMessage());
+			} finally {
+				getConn.rsClose();
+			}
+			return vos;
+		}
+	
+		//해당 리뷰의 좋아요를 증가시킴 
+		public void setReviewLikeUpdate(int idx) {
+			try {
+				sql = "update review set thumb=thumb+1 where idx=?";
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1, idx);
+				pstmt.executeUpdate();
+			} catch (SQLException e) {
+				System.out.println("SQL 오류 : " + e.getMessage());
+			} finally {
+				getConn.pstmtClose();
+			}
+			
+		}
+
+		//회원의 아이디로 작성한 리뷰 조회 
+		public ArrayList<ReviewVO> getReview(String mid) {
+			ArrayList<ReviewVO> vos = new ArrayList<>();
+			try {
+				sql = "select * from review where mid=?";
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, mid);
+				rs = pstmt.executeQuery();
+				while(rs.next()) {
+					vo = new ReviewVO();
+					vo.setIdx(rs.getInt("idx"));
+					vo.setMovieIdx(rs.getInt("movieIdx"));
+					vo.setMid(rs.getString("mid"));
+					vo.setNickName(rs.getString("nickName"));
+					vo.setContext(rs.getString("context"));
+					vo.setRating(rs.getDouble("rating"));
+					vo.setwDate(rs.getString("wDate"));
+					vo.setThumb(rs.getInt("thumb"));
+					vo.setSpoiler(rs.getInt("spoiler"));
+					vo.setReviewDel(rs.getInt("reviewDel"));
 					vos.add(vo);
 				}
 			}catch (SQLException e) {

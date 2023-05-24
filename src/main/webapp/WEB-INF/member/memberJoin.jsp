@@ -14,9 +14,11 @@
   }
   #join-btn-login{
   border: none;
+  color:#f74444;
   background-color: white;
   }
   #modal-btn-join{
+  color:white;
   background-color: #f74444;
  	border: #f74444;
   }
@@ -232,7 +234,7 @@
               <input type="text" class="form-control" id="email" placeholder="이메일">
               <span class="form_warn" id="warn_email">이메일 주소를 다시 확인해주세요.</span>
             </div>
-            <button type="button" id="modal-btn-join" class="btn btn-info btn-block btn-round mt-3" onclick="joinCheck()">회원가입</button>
+            <button type="button" id="modal-btn-join" class="btn btn-block btn-round mt-3" onclick="joinCheck()">회원가입</button>
           </form>
           
           <div class="text-center text-muted delimiter">or use a social network</div>

@@ -6,8 +6,13 @@
 		pageContext.setAttribute("level", level);
 %>
 <c:set var="ctp" value="${pageContext.request.contextPath}"/>
-<jsp:include page="/include/bs4.jsp" />
 <style>
+	@font-face {
+	    font-family: 'NEXON Lv1 Gothic OTF';
+	    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/NEXON Lv1 Gothic OTF.woff') format('woff');
+	    font-weight: normal;
+	    font-style: normal;
+		}
 	@font-face {
 	    font-family: 'TTTtangsbudaejjigaeB';
 	    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2212@1.0/TTTtangsbudaejjigaeB.woff2') format('woff2');
@@ -153,7 +158,7 @@
   top: 100%;
   left: 0;
   z-index: 1000;
-  display: none;
+  display: block;
   float: left;
   min-width: 160px;
   padding: 5px 0;
@@ -193,6 +198,7 @@
     background: white !important;
     color: #fe5f5f !important;
     border: 1px solid #fe5f5f !important;
+
 } 
 .ui-helper-hidden-accessible {
   border: 0;
@@ -203,7 +209,12 @@
   padding: 0;
   position: absolute;
   width: 1px;
+    display:flex;
+    flex-direction: column;
 }
+  .ui-widget li:nth-child(n+6) {
+      display: none;
+  }
   /* ------------------------------------------- */
 	@media (max-width: 930px) {
   #header-search {
@@ -215,24 +226,22 @@
   }
 }
 </style>
-	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+	
 <script>
 	var str = "";
 	var arr;
 	if(str == ""){
 		str = "${searchTitles}";
 		arr = str.split(",");
-		console.log(arr);
 	}
 	$(function () {	//화면 로딩후 시작
-		$("#searchWord").autocomplete({  //오토 컴플릿트 시작
+		$("#searchWord").uiAutocomplete({  //오토 컴플릿트 시작
 			source: arr,	// 이곳에 리스트를 적는다! 
 			focus : function(event, ui) { // 방향키로 자동완성단어 선택 가능하게 만들어줌	
 				return false;
 			},
 			minLength: 1,// 최소 글자수
-			delay: 100,	//autocomplete 딜레이 시간(ms)
+			delay: 300,	//autocomplete 딜레이 시간(ms)
 			//disabled: true, //자동완성 기능 끄기
 		});
 		$("#btn_login").click(function(){

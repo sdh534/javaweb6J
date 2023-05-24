@@ -10,6 +10,12 @@
 	<link href="${ctp}/images/cinetalk.ico" rel="shortcut icon" type="image/x-icon">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
   <style>
+  .full-screen{
+  	display:flex;
+  	flex-direction: column;
+  	align-items: center;
+  	margin-top: 15px;
+  }
   .container{
   	padding:0;
   }
@@ -34,6 +40,7 @@
   }
   .poster-img > img{
 	position: relative;
+	height: 320px;
   width: 100%;
   border-radius: 7px;
   }
@@ -45,8 +52,16 @@
   .text-point{
   	color: #f74444;
   }
+  .carousel-inner{
+   width: 1200px;
+  }
   .carousel-control-next, .carousel-control-prev{
-  width:10%
+  width: 5%;
+  transform: translateX(-5px);
+  height: 30%;
+  top:35%;
+  filter: drop-shadow(5px 5px 5px #000);
+  opacity: .7;
   }
 	.carousel-item{ 
 		margin-left:-2%;
@@ -103,18 +118,13 @@
 
 <body>
 	<jsp:include page="/include/header.jsp"/>
-	<div class="full-screen" style="margin:10px 70px 0 70px">
+	<div class="full-screen" >
 	
 			<!-- 처음 Carousel -->
 		<div class="Movie_Carousel1 carousel slide" data-interval="500">
-	  <!-- Indicators -->
-	  <ul class="carousel-indicators" >
-	    <li data-target="#demo" data-slide-to="0" class="active"></li>
-	    <li data-target="#demo" data-slide-to="1"></li>
-	  </ul>
 	  <!-- The slideshow -->
 	  <div class="carousel-inner">
-		  <h3>💥화제의 감독 <font color="#f74444">크리스토퍼 놀란</font></h3>
+		  <h3 style="font-family: 'GmarketSansMedium'">💥화제의 감독 <font color="#f74444">크리스토퍼 놀란</font></h3>
 	       <c:forEach var="movie_items" items="${main1_vos}" varStatus="st1"> 
 		    	<!-- 1~5위 -->
 		    	<c:if test="${st1.first}"> <!-- 처음일때만 열어줌 -->
@@ -141,10 +151,10 @@
 		  
 		  <!-- Left and right controls -->
 		  <a class="carousel-control-prev"  id="prev-control1" href="#Movie_Carousel1" >
-		    <span class="carousel-control-prev-icon"></span>
+		   <i class="fas fa-chevron-circle-left fa-2x"></i>
 		  </a>
 		  <a class="carousel-control-next"  id="next-control1" href="#Movie_Carousel1" >
-		    <span class="carousel-control-next-icon"></span>
+		   <i class="fas fa-chevron-circle-right fa-2x"></i>
 		  </a>
 	  </div> <!-- carousel - inner 닫힘 -->
 	  
@@ -152,13 +162,9 @@
 	  			<!--  Carousel 2 -->
 		<div class="Movie_Carousel2 carousel slide" data-interval="500">
 	  <!-- Indicators -->
-	  <ul class="carousel-indicators" >
-	    <li data-target="#demo" data-slide-to="0" class="active"></li>
-	    <li data-target="#demo" data-slide-to="1"></li>
-	  </ul>
 	  <!-- The slideshow -->
 	  <div class="carousel-inner">
-		  <h3>🎶노래해요! <font color="#f74444">OST가 좋은 </font>영화 모음집</h3>
+		  <h3 style="font-family: 'GmarketSansMedium'">🎶노래해요! <font color="#f74444">OST가 좋은 </font>영화 모음집</h3>
 	       <c:forEach var="movie_items2" items="${main2_vos}" varStatus="st2"> 
 		    	<!-- 1~5위 -->
 		    	<c:if test="${st2.first}"> <!-- 처음일때만 열어줌 -->
@@ -185,17 +191,16 @@
 		  
 		  <!-- Left and right controls -->
 		  <a class="carousel-control-prev" id="prev-control2" href="#Movie_Carousel2" >
-		    <span class="carousel-control-prev-icon"></span>
+		    <i class="fas fa-chevron-circle-left fa-2x"></i>
 		  </a>
 		  <a class="carousel-control-next control2"  id="next-control2" href="#Movie_Carousel2" >
-		    <span class="carousel-control-next-icon"></span>
+		    <i class="fas fa-chevron-circle-right fa-2x"></i>
 		  </a>
 	  </div> <!-- carousel - inner 닫힘 -->
+	  </div>
 	  
 	  
-	  
-	</div>
-</div>
+	</div></body>
 <jsp:include page="/include/footer.jsp"/>
-</body>
+
 </html>
