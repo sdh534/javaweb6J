@@ -20,7 +20,7 @@
 	    font-style: normal;
 	}
 	#header{
-	 z-index: 1;
+	 z-index: 50;
 	  top: 0px;
 	  height:60px;
 	  position:fixed;
@@ -63,7 +63,7 @@
 	}
 	#searchWord{
 		font-family: "GmarketSansMedium";
-    width: 320px;
+    width: 100%;
     height: 26px;
     font-size: 11pt;
     border: none;
@@ -216,14 +216,10 @@
       display: none;
   }
   /* ------------------------------------------- */
-	@media (max-width: 930px) {
-  #header-search {
-  	display:none;
-  }
-  #searchBtn1{
-  	display:block;
-  	margin-right: 25px; /* 나중에 클릭 구현하기 */
-  }
+	@media (max-width: 960px) {
+ 	#header-search{
+ 		width:200px;
+ 	}
 }
 </style>
 	
@@ -260,25 +256,27 @@
 	  	<div id="logo" onclick="location.href='${ctp}/Main';"><img src="${ctp}/images/cinetalk.png"/>씨네톡</div>
 	  	<ul class="navbar-nav">
 	      <li class="nav-item">
-	        <a class="nav-link" href="${ctp}/MovieAPI2.st">랭킹</a>
+	        <a class="nav-link" href="#">랭킹</a>
 	      </li>
 	      <li class="nav-item">
 	        <a class="nav-link" href="#">상영/예정작</a>
 	      </li>
+	      <c:if test="${sMid =='admin'}">
 	      <li class="nav-item">
-	        <a class="nav-link" href="#">커뮤니티</a>
+	        <a class="nav-link" href="#">관리자</a>
 	      </li>
+	      </c:if>
     	</ul>
     </div>
 	  <div class="header-login">
 	  	<ul style="list-style:none; margin-bottom:0px">
 	  	<li>
-	  	<form name="searchForm" autocomplete="off">
+	  	<form name="searchForm" autocomplete="off" method="get" action="${ctp}/MovieSearch.mo">
 	  			<i class="fas fa-search" id="searchBtn1"></i>
 	  		<div id="header-search" >
 	  		<label>
 	  			<i class="fas fa-search" id="searchBtn2"></i>
-	  			<input type="text" name="searchWord" id="searchWord" placeholder="찾고자 하는 영화, 단어, 유저를 검색해보세요."/>
+	  			<input type="text" name="searchWord" id="searchWord" placeholder="찾고자 하는 영화를 검색해보세요."/>
 	  		</label>
 	  		</div>
 	  	</form>
@@ -292,7 +290,8 @@
   	  		<li>
 	  	  		<button onclick="location.href='${ctp}/MemberMain.mem';" style=" border:none; background-color:transparent;">
 	  	  			<div id="btn_mypage" >
-		  	  			<img src="${ctp}/images/member/${sPhoto}">
+		  	  			<c:if test="${sPhoto!='noimage.jpg'}"><img src="${ctp}/images/member/${sPhoto}"></c:if>
+								<c:if test="${sPhoto=='noimage.jpg'}"><img src="${ctp}/images/noimage.jpg"></c:if>
 		  	  		</div>
 	  	  		</button>
   	  		</li>

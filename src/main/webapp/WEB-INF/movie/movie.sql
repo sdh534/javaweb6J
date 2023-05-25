@@ -68,5 +68,9 @@ select review.* from member cross join review on review.mid = member.mid where m
 select * from (select movieIdx from movie cross join review on review.movieIdx = movie.idx)as a
 select * from (select review.idx as rIdx from movie inner join review on review.movieIdx = movie.idx)as a;
 
+-- 1. 리뷰테이블의 값을 가져와서 -> wDate로 분류 -> title 중복제거 -> movie 테이블과 조인
+select distinct movieIdx from review order by wDate desc;
+
+select * from movie inner join (select distinct movieIdx from review order by wDate desc)as a on idx = a.movieIdx
 
 select title, director, rYear from movie where title like '%가디%' or director like '%가디%' order by title asc limit 5;

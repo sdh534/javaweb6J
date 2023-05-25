@@ -56,6 +56,11 @@ public class MemberController extends HttpServlet{
 			command.execute(request, response);
 			viewPage += "/memberMain.jsp";
 		}
+		else if(com.equals("/MemberReviewList")) {
+			command = new MemberReviewListCommand();
+			command.execute(request, response);
+			viewPage += "/memberReviewList.jsp";
+		}
 		else if(com.equals("/MemberLogoutOk")) {
 			command = new MemberLogoutOkCommand();
 			command.execute(request, response);

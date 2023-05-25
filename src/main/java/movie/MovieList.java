@@ -56,7 +56,7 @@ public class MovieList implements MovieInterface {
 		vos2.add(vo);
 		vo = dao.getMovieList(3977);
 		vos2.add(vo);
-		vo = dao.getMovieList(17964);
+		vo = dao.getMovieList(5268);
 		vos2.add(vo);
 		vo = dao.getMovieList(4013);
 		vos2.add(vo);
@@ -73,14 +73,36 @@ public class MovieList implements MovieInterface {
 		}
 		request.setAttribute("main2_vos", vos2);
 
+		//main에 띄울 영화 목록 3 - 최근 리뷰가 등록된 영화
+		ArrayList<MovieVO> vos3 = dao.getMovieListLastReview();
+		cnt = 0;
+		for(MovieVO vo3 : vos3) {
+			if(vo3.getPoster().contains("|")) { //포스터가 여러개로 존재하면 그중 하나만 가져오기
+				String poster = vo3.getPoster();
+				poster = poster.substring(0, poster.indexOf("|"));
+				vo3.setPoster(poster);
+				vos3.get(cnt).setPoster(poster);
+			}
+			cnt++;
+		}
+		request.setAttribute("main3_vos", vos3);
+		
+		
 		
 		HttpSession session = request.getSession();
 		//자동검색을 위해 모든 값을 가져와서 배열에 뿌려줘야함 
+		if(session.getAttribute("searchTitle")==null) {
 		ArrayList<String> searchTitle = dao.getMovieTitle();
 		String[] array = searchTitle.toArray(new String[searchTitle.size()]);
 		String searchTitles = String.join(",", array);
 		session.setAttribute("searchTitles", searchTitles);
-		//main에 띄울 영화 목록 3
+		}
+		
+		
+		
+		
+		
+		
 		long end = System.currentTimeMillis();
 		System.out.println( "실행 시간 : " + ( end - start )/1000.0 +"초");
 

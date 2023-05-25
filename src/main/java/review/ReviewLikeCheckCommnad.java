@@ -27,7 +27,6 @@ public class ReviewLikeCheckCommnad implements ReviewInterface {
 			sw="1";
 		}
 		session.setAttribute("likeReviewIdx", likeReviewIdx);
-		System.out.println(session.getAttribute("likeReviewIdx"));
 		
 		response.getWriter().write(sw); //눌렀으면 1반환 , 처음이면 0반환
 	}

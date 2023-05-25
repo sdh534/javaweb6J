@@ -163,6 +163,12 @@
     filter: blur(30px);
 	}
 	
+	#edit-profile{
+		background:transparent;
+		border:none;
+		width:50px;
+	}
+	
 	/*--- 파티클 ---*/
 	 #particles-js{ 
 	 position:absolute; 
@@ -267,7 +273,9 @@
 <div class="ticket">
 	<div class="title">
 		<p class="cinema">MY PAGE</p>
-		<p class="movie-title">${vo.nickName}</p>
+		<p class="movie-title">${vo.nickName}
+		<button id="edit-profile"><i class="far fa-edit fa-2xs" style="color:#ccc;"></i></button>
+		</p>
 		<div class="logout">
 			 <button type="button" id="logout" class="btn" onclick="logout()">
 			 	<img src="${ctp}/images/barcode.png" style="width:150px"/>
@@ -282,7 +290,10 @@
 			<div data-toggle="tooltip" data-html="true" data-placement="top" title="프로필 사진을 <br/> 등록해보세요!">
 			<div class="upload-btn"  onclick="onclick=document.profileForm.profile.click();"><i class="fa-solid fa-gear fa-2xl" style="color: #000000;"></i></div>
 			</div>
-			<div class="mypage-poster"> <img src="${ctp}/images/member/${vo.photo}"></div>
+			<div class="mypage-poster"> 
+				<c:if test="${vo.photo!='noimage.jpg'}"><img src="${ctp}/images/member/${vo.photo}"></c:if>
+				<c:if test="${vo.photo=='noimage.jpg'}"><img src="${ctp}/images/noimage.jpg"></c:if>
+			</div>
 		</div>
 		</form>
 	<div class="info">
@@ -293,7 +304,7 @@
 			<th>선호 장르</th>
 		</tr>
 		<tr>
-			<td class="bigger">${rCnt}</td>
+			<td class="bigger"><a href="${ctp}/MemberReviewList.mem">${rCnt}</a></td>
 			<td class="bigger">${vo.m_level}</td>
 			<td >${vo.m_genre}</td>
 		</tr>
@@ -302,7 +313,7 @@
 		<tr>
 			<th>평가 영화수</th>
 			<th>별점 평균</th>
-			<th>감상 시간</th>
+			<th>누적 시간</th>
 		</tr>
 		<tr>
 			<td class="bigger">${mCnt}</td>
@@ -313,11 +324,11 @@
 	</div>
 	<div class="holes-lower"></div>
 	<div class="serial">
-		<table class="info"><tr></tr></table>
+		<table class="info">
 			<tr>
-				<tr>
-			<td class="bigger">소개글</td>
+			<td class="bigger">✒소개글</td>
 			</tr>
+			</table>
 	</div>
 </div>
  

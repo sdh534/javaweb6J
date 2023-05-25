@@ -14,5 +14,7 @@ create table review(
 	on update cascade
 	on delete restrict /* 원본에서 사용하는 키 지우기 제한 - 리뷰가 달려있으면 영화 삭제 불가*/ 
 );
-
+desc review;
 drop table review;
+
+alter table review add column reviewDelContent text;

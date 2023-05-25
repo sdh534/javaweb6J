@@ -23,7 +23,7 @@ public class ReviewDAO {
 		int res = 0;
 		
 		try {
-			sql = "insert into review values(default, ?, ?, ?, '', ?, default, default, default, default)";
+			sql = "insert into review values(default, ?, ?, ?, '', ?, default, default, default, default, default)";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, vo.getMovieIdx());
 			pstmt.setString(2, vo.getMid());
@@ -213,6 +213,21 @@ public class ReviewDAO {
 				getConn.rsClose();
 			}
 			return vos;
+		}
+		//해당 리뷰의 신고 횟수를 누적시킴 
+		public void setReviewWarnUpdate(int rIdx, String mid, String warn) {
+			try {
+				sql = "update review set reviewDel=reviewDel+1, reviewDelContent=concat(reviewDelContent,?) where idx=?";
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, mid +":"+ warn + "/");
+				pstmt.setInt(2, rIdx);
+				pstmt.executeUpdate();
+			} catch (SQLException e) {
+				System.out.println("SQL 오류 : " + e.getMessage());
+			} finally {
+				getConn.pstmtClose();
+			}
+			
 		}
 	
 	

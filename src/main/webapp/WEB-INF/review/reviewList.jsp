@@ -17,6 +17,7 @@
 		padding:20px;
 		float: left;
 		margin-bottom:10px;
+		position: relative;
 	}
 	.comment-writer-img {
 		width:50px;
@@ -58,11 +59,58 @@
 		background: none;
     border: none;
 	}
+	.dropdown-menu > li{
+		font-family: "GmarketSansMedium";
+		font-size:8pt;
+		padding: 10px;
+	}
+	.dropdown-menu > li:nth-child(1){
+		border-bottom: 1px solid #bbb;
+	}
+	.moreBtn{
+		padding: 0;
+		border: none;
+		background-color: transparent;
+		width:100%;
+		height:100%;
+	}
+	.spoiler-filtering{
+		filter: blur(5px);
+	}
+	.spoiler-btn{
+		position: absolute;
+		cursor: pointer;
+    width: auto;
+    height: auto;
+    z-index: 1;
+    left: 40%;
+    padding: 10px;
+    background-color: white;
+    border: 2px solid #f74444;
+    color:#f74444;
+    border-radius: 30px;
+	}
+	.spoiler-btn:hover{
+		background: #f74444;
+    border: 1px solid #f74444;
+    color: white;
+	}
+	
 </style>
 <script>
 	'use strict';
+	$(document).ready(function(){
+		$(".spoiler-btn").click(function(){
+					$(".spoiler-filtering").css("filter","blur(0px)");
+					$(".spoiler-btn").css("display","none");
+		});
+	});
 	function likeReview(reviewIdx){
-		console.log(reviewIdx);
+		if("${sMid}"==""){
+			$('#needLoginModal').modal('show');
+			return false;
+		}
+		
 		$.ajax({
 			type: "post",
 			url: "${ctp}/ReviewLikeCheck.re",
@@ -85,15 +133,31 @@
 			
 		});
 	}
+	
 </script>
+<jsp:include page="/WEB-INF/review/reviewDelModal.jsp"/>
 <c:forEach var="vo2" items="${rVos}" varStatus="st">
+<c:if test="${vo2.context!=''}">
 <div class="comment-list">
-	<div class="comment-writer-img"><img src="${ctp}/images/member/${vo2.photo}"></div>
+	<div class="comment-writer-img">
+		<c:if test="${vo2.photo=='noimage.jpg'}"><img src="${ctp}/images/noimage.jpg"></c:if>
+		<c:if test="${vo2.photo!='noimage.jpg'}"><img src="${ctp}/images/member/${vo2.photo}"></c:if>
+	</div>
 	<div class="comment-top">
 		<div class="rating">
 			<div class="review-more">
-			<button class="review-like" id="" onclick="likeReview(${vo2.idx})" value="${vo2.idx}" ><i class="fas fa-heart fa-sm"></i> ${vo2.thumb}</button>
-			<button class="review-more" onclick="moreBtn()" value="${vo2.idx}" ><i class="far fa-ellipsis-v"></i></button>
+			<button class="review-like" onclick="likeReview(${vo2.idx})" value="${vo2.idx}" ><i class="fas fa-heart fa-sm"></i> ${vo2.thumb}</button>
+			<button class="review-more" type="button" id="moreMenu" data-toggle="dropdown"><i class="far fa-ellipsis-v"></i></button>
+			<ul class="dropdown-menu text-center" aria-labelledby="moreMenu">
+		    <c:if test="${sMid == vo2.mid }">
+			    <li><button class="moreBtn" data-toggle="modal" data-target="#reviewModal"  >
+						<i class="fa-solid fa-pen fa-2xs"></i>&nbsp;수정				
+					</button></li>
+				</c:if>
+		    <li><button class="moreBtn" data-toggle="modal" data-target="#warnModal" data-whatever="${vo2.idx}">
+					<i class="fas fa-ban fa-2xs"></i> &nbsp; 신고		
+				</button></li>
+		  </ul>
 			</div> 
 			<div id="review-star-rating">
 				★★★★★
@@ -103,6 +167,15 @@
 		</div>
 	<b>${vo2.nickName}</b><font color="#ccc"> | ${fn:substring(vo2.wDate,0,19)}</font>
 	</div>
-	<div>${vo2.context}</div>
-</div>
+	<c:if test="${vo2.spoiler ==1}">
+		<button class="spoiler-btn">	<i class="far fa-eye-slash"></i> 스포일러가 있어요! </button>
+		<div class="spoiler-filtering">
+			<div>${vo2.context}</div>
+		</div>
+	</c:if>
+	<c:if test="${vo2.spoiler ==0}">
+		<div>${vo2.context}</div>
+	</c:if>
+	</div>
+</c:if>
 </c:forEach>

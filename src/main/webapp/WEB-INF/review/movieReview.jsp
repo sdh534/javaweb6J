@@ -99,7 +99,14 @@
 
 
 	$(document).ready(function(){
-		$('[data-toggle="tooltip"]').tooltip()
+		$('[data-toggle="tooltip"]').tooltip();
+		$(document).mouseup(function (e){
+			  var LayerPopup = $("#reviewModal");
+			  if(LayerPopup.has(e.target).length === 0){
+				  $('.modal-dialog').modal('hide');
+			  }
+			});
+		
 	});
 	
 	function reviewCheck(){
@@ -171,8 +178,8 @@
 		}
 </script>
 
-<div class="modal fade" id="reviewModal" tabindex="-1" aria-hidden="true">
   <form name="review-form">
+<div class="modal fade" id="reviewModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
         <div class="modal-header border-bottom-0">
@@ -191,7 +198,7 @@
                   <input type="range" name="starRatingValue2" id="starRatingValue2" value="0" step="1" min="0" max="10" onclick="rCheck2()" />
                 </c:if>
                 <c:if test="${memberRVo.rating !=null }">
-                  <input type="range" name="starRatingValue2" id="starRatingValue2" value="${memberRVo.rating}" step="1" min="0" max="10" onclick="rCheck2()" />
+                  <input type="range" name="starRatingValue2" id="starRatingValue2" value="${memberRVo.rating*2}" step="1" min="0" max="10" onclick="rCheck2()" />
                 </c:if>
               </div>
             </div>
@@ -218,8 +225,8 @@
         </div>
       </div>
     </div>
-  </form>
 </div>
+  </form>
 
 
 <script>

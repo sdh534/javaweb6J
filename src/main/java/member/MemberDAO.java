@@ -4,8 +4,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import conn.GetConn;
+import movie.MovieVO;
+import review.ReviewVO;
 
 public class MemberDAO {
 	GetConn getConn = GetConn.getInstance();
@@ -103,7 +106,7 @@ public class MemberDAO {
 	}
 
 
-
+//유저의 사진 변경
 	public void setMemberPhotoUpdate(String filesystemName, String mid) {
 		try {
 			sql = "update member set photo = ? where mid = ?";

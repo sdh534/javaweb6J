@@ -23,6 +23,8 @@
 		height: 200px;
 		background-color: white;
 		border-bottom: 1.5px solid #ddd;
+		width: 100%;
+		justify-content: center;
 	}
 	.detail-movie-top, .detail-bottom-container{
 		margin-left:10%;
@@ -92,7 +94,6 @@
 		width:30px;
 		height:30px;
 	}
-	.detail-movie-content{}
 	.detail-bottom{
 		background-color: white;
 		display:flex;
@@ -113,7 +114,8 @@
     width: 1px;
     margin-top: 15px;
     background-color: #ccc;
-    margin-right:40px;
+    margin-right: 5%;
+    margin-left: 5%;
 	}
 	.detail-top-bottom{
 		display: flex;
@@ -191,6 +193,8 @@
 	@media (max-width: 1000px) {
 	.detail-top{
 		height:370px;
+		width:initial;
+		justify-content: initial;
 	}
 	.detail-movie-top{
 		position:relative;
@@ -379,7 +383,7 @@
       });
       document.querySelector("#starRatingValue").addEventListener("mouseleave",function(event){
           $("#star-rating-checked").css("width", ${memberRVo.rating*20}+"%");
-				 		$("#user-rating-result").html("★ " + ${memberRVo.rating}); //이값을 DB로 전송 - AJAX처리 
+				 	$("#user-rating-result").html("★ " + ${memberRVo.rating}); //이값을 DB로 전송 - AJAX처리 
       });
 	</script>
 </body>

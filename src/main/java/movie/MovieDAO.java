@@ -168,11 +168,11 @@ public class MovieDAO {
 	public ArrayList<String> getMovieTitle() {
 		ArrayList<String> title = new ArrayList<>();
 		try {
-			sql = "select title from movie";
+			sql = "select title, rYear from movie";
 			pstmt = conn.prepareStatement(sql);
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
-				title.add(rs.getString("title"));
+				title.add(rs.getString("title")+" ("+rs.getInt("rYear")+")");
 			}
 		}catch (SQLException e) {
 			System.out.println("SQL 에러 : " + e.getMessage());
@@ -181,6 +181,74 @@ public class MovieDAO {
 		}
 
 		return title;
+	}
+
+	public MovieVO searchMovie(String title, int rYear) {
+		vo = new MovieVO();
+		try {
+			sql = "select * from movie where title = ? and rYear = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, title);
+			pstmt.setInt(2, rYear);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				vo.setIdx(rs.getInt("idx"));
+				vo.setTitle(rs.getString("title"));
+				vo.setrYear(rs.getInt("rYear"));
+				vo.setCountry(rs.getString("country"));
+				vo.setGenre(rs.getString("genre"));
+				vo.setDirector(rs.getString("director"));
+				vo.setActor(rs.getString("actor"));
+				vo.setKeyword(rs.getString("keyword"));
+				vo.setStory(rs.getString("story"));
+				vo.setPoster(rs.getString("poster"));
+				vo.setRating(rs.getDouble("rating"));
+				vo.setRuntime(rs.getInt("runtime"));
+				vo.setTrailerKey(rs.getString("trailerKey"));
+			}
+		}catch (SQLException e) {
+			System.out.println("SQL 에러 : " + e.getMessage());
+		} finally {
+			getConn.rsClose();
+		}
+
+		return vo;
+	}
+
+	public ArrayList<MovieVO> getMovieListLastReview() {
+		ArrayList<MovieVO> vos = new ArrayList<>();
+		try {
+			sql = "select * from movie inner join "
+					+ "(select distinct movieIdx from review order by wDate desc)"
+					+ "as a on idx = a.movieIdx";
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			if(vos.size()<=10) {
+				while(rs.next()) {
+					vo = new MovieVO();
+					vo.setIdx(rs.getInt("idx"));
+					vo.setTitle(rs.getString("title"));
+					vo.setrYear(rs.getInt("rYear"));
+					vo.setCountry(rs.getString("country"));
+					vo.setGenre(rs.getString("genre"));
+					vo.setDirector(rs.getString("director"));
+					vo.setActor(rs.getString("actor"));
+					vo.setKeyword(rs.getString("keyword"));
+					vo.setStory(rs.getString("story"));
+					vo.setPoster(rs.getString("poster"));
+					vo.setRating(rs.getDouble("rating"));
+					vo.setRuntime(rs.getInt("runtime"));
+					vo.setTrailerKey(rs.getString("trailerKey"));
+					vos.add(vo);
+				}
+			}
+		}catch (SQLException e) {
+			System.out.println("SQL 에러 : " + e.getMessage());
+		} finally {
+			getConn.rsClose();
+		}
+
+		return vos;
 	}
 
 

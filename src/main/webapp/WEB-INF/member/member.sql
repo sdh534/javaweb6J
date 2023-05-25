@@ -39,4 +39,4 @@ select * from movie where title="덩케르크";
 
 select * from member where mid="admin";
 
-select review.*, member.photo from member cross join review on review.mid = member.mid
+select review.*, member.photo from member inner join review on review.mid = member.mid where review.mid='sdh534';
