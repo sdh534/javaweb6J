@@ -48,8 +48,8 @@
 	
 	function RegCheck(){
 	let regPwd = /(?=.*[0-9a-zA-Z!@#$%^&*_]).{8,20}$/;
-	let regMid = /^[a-zA-Z0-9_]{4,20}$/; //아이디는 영대소문자와 숫자, 언더바만 허용 (4-20자)
-	let regNickName = /^[가-힣]+$/;
+	let regMid = /^[a-zA-Z0-9_]{4,12}$/; //아이디는 영대소문자와 숫자, 언더바만 허용 (4-12자)
+	let regNickName = /^[가-힣]{1,12}$/;
 	let regEmail =/^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/;
 	 
 		$(document).ready(function(){

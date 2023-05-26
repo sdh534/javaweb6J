@@ -279,8 +279,8 @@
 		<div class="logout">
 			 <button type="button" id="logout" class="btn" onclick="logout()">
 			 	<img src="${ctp}/images/barcode.png" style="width:150px"/>
+				<span>로그아웃</span>
 			 </button>
-			<span>로그아웃</span>
 		</div>
 	</div>
 		<form name="profileForm" method="post" action="${ctp}/MemberPhotoUpdate.mem" enctype="multipart/form-data">

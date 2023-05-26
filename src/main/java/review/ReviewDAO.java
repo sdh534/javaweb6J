@@ -214,6 +214,7 @@ public class ReviewDAO {
 			}
 			return vos;
 		}
+		
 		//해당 리뷰의 신고 횟수를 누적시킴 
 		public void setReviewWarnUpdate(int rIdx, String mid, String warn) {
 			try {
@@ -228,6 +229,92 @@ public class ReviewDAO {
 				getConn.pstmtClose();
 			}
 			
+		}
+
+		public ArrayList<ReviewVO> getAllReview(int startIndexNo, int pageSize) {
+			ArrayList<ReviewVO> vos = new ArrayList<>();
+			try {
+				sql = "select * from review where context != '' order by wDate desc limit ?,?";
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1, startIndexNo);
+				pstmt.setInt(2, pageSize);
+				rs = pstmt.executeQuery();
+				while(rs.next()) {
+					vo = new ReviewVO();
+					vo.setIdx(rs.getInt("idx"));
+					vo.setMovieIdx(rs.getInt("movieIdx"));
+					vo.setMid(rs.getString("mid"));
+					vo.setNickName(rs.getString("nickName"));
+					vo.setContext(rs.getString("context"));
+					vo.setRating(rs.getDouble("rating"));
+					vo.setwDate(rs.getString("wDate"));
+					vo.setThumb(rs.getInt("thumb"));
+					vo.setSpoiler(rs.getInt("spoiler"));
+					vo.setReviewDel(rs.getInt("reviewDel"));
+					vo.setReviewDelContent(rs.getString("reviewDelContent"));
+					vos.add(vo);
+				}
+			}catch (SQLException e) {
+				System.out.println("SQL 에러 : " + e.getMessage());
+			} finally {
+				getConn.rsClose();
+			}
+			return vos;
+		}
+
+		public int getAllReview() {
+			int res=0;
+			try {
+				sql = "select count(*)as cnt from review where context != ''";
+				pstmt = conn.prepareStatement(sql);
+				rs = pstmt.executeQuery();
+				if(rs.next()) {
+					res=rs.getInt("cnt");
+				}
+			}catch (SQLException e) {
+				System.out.println("SQL 에러 : " + e.getMessage());
+			} finally {
+				getConn.rsClose();
+			}
+			
+			return res;
+		}
+
+		public String getReviewDelContent(int rIdx) {
+			String res="";
+			try {
+				sql = "select * from review where idx=?";
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1, rIdx);
+				rs = pstmt.executeQuery();
+				if(rs.next()) {
+					res=rs.getString("reviewDelContent");
+				}
+			}catch (SQLException e) {
+				System.out.println("SQL 에러 : " + e.getMessage());
+			} finally {
+				getConn.rsClose();
+			}
+			
+			return res;
+		}
+
+		//리뷰의 고유번호로 리뷰 삭제
+		public int setDeleteReview(int idx) {
+			int res = 0;
+			try {
+				sql = "delete from review  where idx =?";
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1, idx);
+				pstmt.executeUpdate();
+				res=1;
+			} catch (SQLException e) {
+				System.out.println("SQL 오류 : " + e.getMessage());
+			} finally {
+				getConn.pstmtClose();
+			}
+			
+			return res;
 		}
 	
 	

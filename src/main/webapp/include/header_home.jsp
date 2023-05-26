@@ -63,7 +63,7 @@
 	}
 	#searchWord{
 		font-family: "GmarketSansMedium";
-    width: 100%;
+    width: 350px;
     height: 26px;
     font-size: 11pt;
     border: none;
@@ -263,7 +263,7 @@
 	      </li>
 	      <c:if test="${sMid =='admin'}">
 	      <li class="nav-item">
-	        <a class="nav-link" href="#">관리자</a>
+	        <a class="nav-link" href="${ctp}/AdminMain.ad">관리자</a>
 	      </li>
 	      </c:if>
     	</ul>

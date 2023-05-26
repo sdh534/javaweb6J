@@ -122,4 +122,56 @@ public class MemberDAO {
 	}
 
 
+	public ArrayList<MemberVO> getAllMemberList(int startIndexNo, int pageSize) {
+		ArrayList<MemberVO> vos = new ArrayList<>();
+		try {
+			sql = "select * from member order by idx desc limit ?,?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, startIndexNo);
+			pstmt.setInt(2, pageSize);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				vo = new MemberVO();
+				vo.setIdx(rs.getInt("idx"));
+				vo.setMid(rs.getString("mid"));
+				vo.setPwd(rs.getString("pwd"));
+				vo.setSalt(rs.getString("salt"));
+				vo.setEmail(rs.getString("email"));
+				vo.setM_genre(rs.getString("m_genre"));
+				vo.setM_level(rs.getInt("m_level"));
+				vo.setNickName(rs.getString("nickName"));
+				vo.setUserDel(rs.getString("userDel"));
+				vo.setUserInfor(rs.getString("userInfor"));
+				vo.setContent(rs.getString("content"));
+				vo.setPhoto(rs.getString("photo"));
+				vos.add(vo);
+			}
+		}catch (SQLException e) {
+			System.out.println("SQL 에러 : " + e.getMessage());
+		} finally {
+			getConn.rsClose();
+		}
+		return vos;
+	}
+
+//회원 수를 조회하는 테이블 
+	public int getAllMember() {
+		int res=0;
+		try {
+			sql = "select count(*)as cnt from member";
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				res=rs.getInt("cnt");
+			}
+		}catch (SQLException e) {
+			System.out.println("SQL 에러 : " + e.getMessage());
+		} finally {
+			getConn.rsClose();
+		}
+		
+		return res;
+	}
+
+
 }

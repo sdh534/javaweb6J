@@ -41,6 +41,16 @@ public class ReviewController extends HttpServlet{
 			command.execute(request, response);
 			return;
 		}
+		else if(com.equals("/ReviewWarnList")) {
+			command = new ReviewWarnListCommnad();
+			command.execute(request, response);
+			return;
+		}
+		else if(com.equals("/ReviewDeleteOk")) {
+			command = new ReviewDeleteOkCommnad();
+			command.execute(request, response);
+			return;
+		}
 		
 		RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
 		dispatcher.forward(request, response);

@@ -19,6 +19,9 @@ public class ReviewUpdateCommentCommnad implements ReviewInterface {
 		
 		int spoiler = spoilerCheck.equals("true") ? 1 : 0; //스포일러 체크가 참일 경우 1, 아닐 경우 0
 		
+		review = review.replace("<", "&lt;");
+		review = review.replace(">", "&gt;");
+		
 		ReviewDAO dao = new ReviewDAO();
 		ReviewVO vo = new ReviewVO();
 		

@@ -74,3 +74,5 @@ select distinct movieIdx from review order by wDate desc;
 select * from movie inner join (select distinct movieIdx from review order by wDate desc)as a on idx = a.movieIdx
 
 select title, director, rYear from movie where title like '%가디%' or director like '%가디%' order by title asc limit 5;
+
+select * from review where context != ''

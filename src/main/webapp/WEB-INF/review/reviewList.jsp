@@ -17,7 +17,6 @@
 		padding:20px;
 		float: left;
 		margin-bottom:10px;
-		position: relative;
 	}
 	.comment-writer-img {
 		width:50px;
@@ -77,18 +76,23 @@
 	.spoiler-filtering{
 		filter: blur(5px);
 	}
+	.review-context{
+		position:relative;
+	}
 	.spoiler-btn{
 		position: absolute;
 		cursor: pointer;
-    width: auto;
+    width: 200px;
     height: auto;
     z-index: 1;
-    left: 40%;
+    left: 50%;
+    top: 50%;
     padding: 10px;
     background-color: white;
     border: 2px solid #f74444;
     color:#f74444;
     border-radius: 30px;
+    transform: translate(-50%, -50%);
 	}
 	.spoiler-btn:hover{
 		background: #f74444;
@@ -167,6 +171,7 @@
 		</div>
 	<b>${vo2.nickName}</b><font color="#ccc"> | ${fn:substring(vo2.wDate,0,19)}</font>
 	</div>
+	<div class="review-context">
 	<c:if test="${vo2.spoiler ==1}">
 		<button class="spoiler-btn">	<i class="far fa-eye-slash"></i> 스포일러가 있어요! </button>
 		<div class="spoiler-filtering">
@@ -176,6 +181,7 @@
 	<c:if test="${vo2.spoiler ==0}">
 		<div>${vo2.context}</div>
 	</c:if>
+	</div>
 	</div>
 </c:if>
 </c:forEach>

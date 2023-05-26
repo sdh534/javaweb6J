@@ -216,7 +216,8 @@
         </div>
         <div class="modal-footer d-flex">
           <div class="spoiler-section text-left" data-toggle="tooltip" data-html="true" data-placement="top" title="스포일러가 있는 <br/> 코멘트를 가려보세요!">
-            <div>스포일러가 있다면? <input type="checkbox" name="toggleBtn" id="toggleBtn" /><label for="toggleBtn" id="toggle"></label></div>
+            <div>스포일러가 있다면?
+             <input type="checkbox" name="toggleBtn" id="toggleBtn" <c:if test="${memberRVo.spoiler==1}">checked</c:if> /><label for="toggleBtn" id="toggle"></label></div>
           </div>
           <button type="button" id="modal-btn-review" class="btn btn-block btn-round" onclick="reviewCheck()">
           	<c:if test="${memberRVo.context==null}">등록</c:if>

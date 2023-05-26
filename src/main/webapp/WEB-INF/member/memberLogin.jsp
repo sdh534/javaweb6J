@@ -25,6 +25,11 @@
 	function login_off(){
 		$('#loginModal').modal('hide');
 	}
+	function press(f){
+	    if(f.keyCode == 13){ //javascript에서는 13이 enter키를 의미함
+	    	login-form.submit(); //formname에 사용자가 지정한 form의 name입력
+	    }
+	}
 	function loginCheck(){
 		//여기 정규식 체크 (아이디, 비밀번호)
 	
@@ -83,10 +88,10 @@
         <div class="d-flex flex-column text-center">
           <form name="login-form">
             <div class="form-group">
-              <input type="text" class="form-control" name="mid" id="mid" placeholder="아이디" autofocus>
+              <input type="text" class="form-control" name="mid" id="mid" placeholder="아이디" autofocus  onkeypress="JavaScript:press(this.form)">
             </div>
             <div class="form-group">
-              <input type="password" class="form-control" name="pwd" id="pwd" placeholder="비밀번호">
+              <input type="password" class="form-control" name="pwd" id="pwd" placeholder="비밀번호"  onkeypress="JavaScript:press(this.form)">
             </div>
             <button type="button" id="modal-btn-login" class="btn btn-info btn-block btn-round" onclick="loginCheck()">Login</button>
           </form>

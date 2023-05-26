@@ -12,6 +12,7 @@ public class ReviewVO {
 	private int spoiler;
 	private int reviewDel;
 	private String photo;
+	private String reviewDelContent;
 	
 	private int rCount; //회원이 작성한 리뷰의 수를 반환
 	private int mCount; //회원이 작성한 평가한 영화의 수를 반환
@@ -96,12 +97,21 @@ public class ReviewVO {
 	public void setmCount(int mCount) {
 		this.mCount = mCount;
 	}
+	public String getReviewDelContent() {
+		return reviewDelContent;
+	}
+	public void setReviewDelContent(String reviewDelContent) {
+		this.reviewDelContent = reviewDelContent;
+	}
 	@Override
 	public String toString() {
 		return "ReviewVO [idx=" + idx + ", movieIdx=" + movieIdx + ", mid=" + mid + ", nickName=" + nickName + ", context="
 				+ context + ", rating=" + rating + ", wDate=" + wDate + ", thumb=" + thumb + ", spoiler=" + spoiler
-				+ ", reviewDel=" + reviewDel + ", photo=" + photo + ", rCount=" + rCount + ", mCount=" + mCount + "]";
+				+ ", reviewDel=" + reviewDel + ", photo=" + photo + ", reviewDelContent=" + reviewDelContent + ", rCount="
+				+ rCount + ", mCount=" + mCount + "]";
 	}
+
+	
 	
 	
 }
